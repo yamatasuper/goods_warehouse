@@ -1,4 +1,4 @@
-CREATE TABLE goods
+CREATE TABLE product
 (
     id                      SERIAL PRIMARY KEY,  -- Уникальный идентификатор (или можно использовать UUID)
     name                    VARCHAR(255) NOT NULL,  -- Название товара

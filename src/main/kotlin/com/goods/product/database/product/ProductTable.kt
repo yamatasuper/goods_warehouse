@@ -1,11 +1,11 @@
-package com.goods.goods.database.goods
+package com.goods.product.database.product
 
-import com.goods.goods.features.goods.WarehouseRemoteModel
+import com.goods.product.features.product.ProductRemoteModel
 import org.jetbrains.exposed.sql.Table
 import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.transactions.transaction
 
-object GoodsTable : Table() {
+object ProductTable : Table() {
     val id = integer("id")
     val name = varchar("name", 255)
     val sku = varchar("sku", 100).uniqueIndex()
@@ -16,25 +16,25 @@ object GoodsTable : Table() {
     val lastQuantityUpdate = varchar("last_quantity_update", 100).nullable()
     val createdAt = varchar("created_at", 100).nullable()
 
-    fun fetchGoods(): List<WarehouseRemoteModel> {
+    fun fetchProduct(): List<ProductRemoteModel> {
         return try {
             transaction {
-                GoodsTable.selectAll().map {
-                    WarehouseRemoteModel(
-                        id = it[GoodsTable.id],
-                        name = it[GoodsTable.name],
-                        sku = it[GoodsTable.sku],
-                        description = it[GoodsTable.description],
-                        category = it[GoodsTable.category],
-                        price = it[GoodsTable.price].toDouble(),
-                        quantity = it[GoodsTable.quantity],
-                        lastQuantityUpdate = it[GoodsTable.lastQuantityUpdate].toString(),
-                        createdAt = it[GoodsTable.createdAt].toString()
+                ProductTable.selectAll().map {
+                    ProductRemoteModel(
+                        id = it[ProductTable.id],
+                        name = it[ProductTable.name],
+                        sku = it[ProductTable.sku],
+                        description = it[ProductTable.description],
+                        category = it[ProductTable.category],
+                        price = it[ProductTable.price].toDouble(),
+                        quantity = it[ProductTable.quantity],
+                        lastQuantityUpdate = it[ProductTable.lastQuantityUpdate].toString(),
+                        createdAt = it[ProductTable.createdAt].toString()
                     )
                 }
             }
         } catch (e: Exception) {
-            emptyList() // Возвращаем пустой список в случае ошибки
+            emptyList()
         }
     }
 }

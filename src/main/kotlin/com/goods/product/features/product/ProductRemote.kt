@@ -1,9 +1,9 @@
-package com.goods.goods.features.goods
+package com.goods.product.features.product
 
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class GoodsRemoteModel(
+data class ProductRemoteModel(
     val id: Int,
     val name: String,
     val sku: String,

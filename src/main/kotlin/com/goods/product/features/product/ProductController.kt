@@ -1,12 +1,12 @@
-package com.goods.goods.features.goods
+package com.goods.product.features.product
 
+import com.goods.product.database.product.ProductTable
 import io.ktor.server.application.ApplicationCall
 import io.ktor.server.response.respond
 
-class WarehouseController(private val call: ApplicationCall) {
-
-    suspend fun getWarehouseGoodsData() {
-        val coursesCategories = CoursesCategories.fetchCoursesCategories()
-        call.respond(coursesCategories)
+class ProductController(private val call: ApplicationCall) {
+    suspend fun getProductData() {
+        val productData = ProductTable.fetchProduct()
+        call.respond(productData)
     }
 }

@@ -1,6 +1,7 @@
-package com.goods.goods
+package com.goods.product
 
-import com.goods.goods.plugins.*
+import com.goods.product.features.product.configureProductRouting
+import com.goods.product.plugins.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
@@ -11,7 +12,7 @@ class ApplicationTest {
     @Test
     fun testRoot() = testApplication {
         application {
-            configureRouting()
+            configureProductRouting()
         }
         client.get("/").apply {
             assertEquals(HttpStatusCode.OK, status)
