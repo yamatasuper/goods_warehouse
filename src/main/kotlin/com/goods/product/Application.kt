@@ -1,6 +1,7 @@
-package com.goods.warehouse
+package com.goods.goods
 
-import com.goods.warehouse.plugins.*
+import com.goods.goods.features.goods.configureWarehouseRouting
+import com.goods.goods.plugins.*
 import io.ktor.server.application.*
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
@@ -32,7 +33,7 @@ fun main() {
     ).start(wait = true)
 }
 fun Application.mediasoftModule() {
-    configureRouting()
+    configureWarehouseRouting()
     configureSerialization()
 }
 
