@@ -1,0 +1,12 @@
+# Exported from Render on 2024-04-07T15:17:19Z
+databases:
+  - name: postgesql-helloworld
+    databaseName: postgesql_helloworld
+    user: artemmovchan
+    plan: free
+    region: oregon
+    ipAllowList:
+      - source: 95.68.219.249/32
+        description: Артемий Мовчан (mob.ar14@gmail.com)
+    postgresMajorVersion: "16"
+version: "1"
