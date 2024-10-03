@@ -55,6 +55,13 @@ dependencies {
     implementation(libs.ktor.server.kotlinx)
     implementation(libs.ktor.server.netty)
 
+    // Swagger and OpenAPI
+    implementation(libs.ktor.server.swagger)
+    implementation(libs.ktor.server.openapi)
+    implementation(libs.swagger.annotations)
+    implementation(libs.swagger.core)
+    implementation(libs.jackson.dataformat.yaml)
+
     implementation(libs.exposed.core)
     implementation(libs.exposed.dao)
     implementation(libs.exposed.jdbc)
@@ -65,10 +72,18 @@ dependencies {
     implementation(libs.bcrypt)
 
     implementation(libs.logback)
+    implementation(libs.slf4j.api)
+    implementation(libs.slf4j.simple)
+
     testImplementation(libs.ktor.server.tests)
     testImplementation(libs.kotlin.tests)
 }
 
+
 tasks.create("stage") {
     dependsOn("installDist")
+}
+
+tasks.withType<Copy> {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE // Или DuplicatesStrategy.INCLUDE
 }

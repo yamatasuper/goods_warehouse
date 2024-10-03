@@ -2,6 +2,7 @@ package com.goods.product
 
 import com.goods.product.features.product.configureProductRouting
 import com.goods.product.plugins.*
+import com.goods.product.swagger.configureSwagger
 import io.ktor.server.application.*
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
@@ -29,12 +30,13 @@ fun main() {
 //    embeddedServer(
 //        Netty,
 //        port = 8080,
-//        module = Application::mediasoftModule
+//        module = Application::goodsWarehouse
 //    ).start(wait = true)
 }
 fun Application.goodsWarehouse() {
     configureRouting()
     configureProductRouting()
     configureSerialization()
+    configureSwagger()
 }
 

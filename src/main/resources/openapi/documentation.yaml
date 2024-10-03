@@ -1,0 +1,92 @@
+openapi: 3.0.0
+info:
+  title: Product API
+  version: 1.0.0
+  description: API для загрузки данных о продуктах и складах
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        sku:
+          type: string
+        description:
+          type: string
+        category:
+          type: string
+        price:
+          type: number
+          format: double
+        quantity:
+          type: integer
+        lastQuantityUpdate:
+          type: string
+          format: date-time
+        createdAt:
+          type: string
+          format: date-time
+paths:
+  /loadWarehouses:
+    get:
+      summary: Получение списка продуктов
+      operationId: getProducts
+      responses:
+        '200':
+          description: Успешный ответ с данными о продуктах
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+        '500':
+          description: Ошибка на сервере
+
+
+#openapi: 3.0.0
+#info:
+#  title: Product API
+#  version: 1.0.0
+#  description: API для загрузки данных о продуктах и складах
+#paths:
+#  /loadWarehouses:
+#    get:
+#      summary: Получение списка продуктов
+#      operationId: getProducts
+#      responses:
+#        '200':
+#          description: Успешный ответ с данными о продуктах
+#          content:
+#            application/json:
+#              schema:
+#                type: array
+#                items:
+#                  type: object
+#                  properties:
+#                    id:
+#                      type: integer
+#                    name:
+#                      type: string
+#                    sku:
+#                      type: string
+#                    description:
+#                      type: string
+#                    category:
+#                      type: string
+#                    price:
+#                      type: number
+#                      format: double
+#                    quantity:
+#                      type: integer
+#                    lastQuantityUpdate:
+#                      type: string
+#                      format: date-time
+#                    createdAt:
+#                      type: string
+#                      format: date-time
+#        '500':
+#          description: Ошибка на сервере
