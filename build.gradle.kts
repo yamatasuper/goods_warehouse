@@ -77,6 +77,10 @@ dependencies {
 
     testImplementation(libs.ktor.server.tests)
     testImplementation(libs.kotlin.tests)
+
+    testImplementation("io.mockk:mockk:1.12.3")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.7.0")
+    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.7.0")
 }
 
 

@@ -13,6 +13,6 @@ data class ProductRemoteModel(
     val category: String?,
     val price: Double,
     val quantity: Int,
-    val lastQuantityUpdate: String,
-    val createdAt: String
+    val lastQuantityUpdate: String?,
+    val createdAt: String?
 )
