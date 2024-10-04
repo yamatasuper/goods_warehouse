@@ -21,6 +21,8 @@ fun main() {
         port = System.getenv("SERVER_PORT").toInt(),
         module = Application::goodsWarehouse
     ).start(wait = true)
+
+//TODO: убрать локальный запуск
 //    Database.connect(
 //        url = "jdbc:postgresql://localhost:5432/artemmovchan",
 //        driver = "org.postgresql.Driver",
@@ -34,7 +36,6 @@ fun main() {
 //    ).start(wait = true)
 }
 fun Application.goodsWarehouse() {
-    configureRouting()
     configureProductRouting()
     configureSerialization()
     configureSwagger()
