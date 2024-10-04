@@ -9,7 +9,7 @@ import org.jetbrains.exposed.sql.transactions.transaction
 data class ProductValidationResult(val isValid: Boolean, val errors: List<String> = emptyList())
 
 object ProductTable : Table() {
-    val id = integer("id")
+    val id = uuid("id")
     val name = varchar("name", 255)
     val sku = varchar("sku", 100).uniqueIndex()
     val description = text("description").nullable()
