@@ -14,8 +14,5 @@ fun Application.configureProductRouting() {
             val coursesController = com.goods.product.features.product.ProductController(call)
             coursesController.getProductData()
         }
-        get("/test") {
-            call.respondText("Hello, World")
-        }
     }
 }
