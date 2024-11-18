@@ -1,6 +1,7 @@
 package com.goods.product
 
 import com.goods.product.features.product.configureProductRouting
+import com.goods.product.logger.configureStatusPages
 import com.goods.product.plugins.*
 import com.goods.product.swagger.configureSwagger
 import io.ktor.server.application.*
@@ -39,5 +40,6 @@ fun Application.goodsWarehouse() {
     configureProductRouting()
     configureSerialization()
     configureSwagger()
+    configureStatusPages()
 }
 
