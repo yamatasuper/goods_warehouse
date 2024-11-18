@@ -4,6 +4,7 @@ services:
     build: .
     ports:
       - "${SERVER_PORT}:${SERVER_PORT}"
+      - "5005:5005"
     environment:
       - SERVER_PORT=$SERVER_PORT
       - DATABASE_CONNECTION_STRING=$DATABASE_CONNECTION_STRING
