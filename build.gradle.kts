@@ -74,14 +74,17 @@ dependencies {
 
     implementation(libs.logback)
     implementation(libs.slf4j.api)
-    implementation(libs.slf4j.simple)
 
     testImplementation(libs.ktor.server.tests)
     testImplementation(libs.kotlin.tests)
 
-    testImplementation("io.mockk:mockk:1.12.3")
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.7.0")
-    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.7.0")
+    testImplementation(libs.junit.jupiter) // JUnit 5
+    testImplementation(libs.exposed.core) // Exposed Core
+    testImplementation(libs.exposed.dao) // Exposed DAO
+    testImplementation(libs.exposed.jdbc) // Exposed JDBC
+    testImplementation(libs.h2) // In-memory H2 database
+
+
 }
 
 
