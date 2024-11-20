@@ -1,9 +1,11 @@
 import io.ktor.plugin.features.*
+import org.jetbrains.dokka.gradle.DokkaTask
 
 plugins {
     application
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.dokka)
     id("io.ktor.plugin") version "2.3.8"
 }
 
@@ -63,30 +65,31 @@ dependencies {
     implementation(libs.swagger.core)
     implementation(libs.jackson.dataformat.yaml)
 
+    // Exposed
     implementation(libs.exposed.core)
     implementation(libs.exposed.dao)
     implementation(libs.exposed.jdbc)
 
+    // Database and connection pooling
     implementation(libs.postgress)
     implementation(libs.hikari)
 
+    // Security
     implementation(libs.bcrypt)
 
+    // Logging
     implementation(libs.logback)
     implementation(libs.slf4j.api)
 
+    // Test dependencies
     testImplementation(libs.ktor.server.tests)
     testImplementation(libs.kotlin.tests)
-
-    testImplementation(libs.junit.jupiter) // JUnit 5
-    testImplementation(libs.exposed.core) // Exposed Core
-    testImplementation(libs.exposed.dao) // Exposed DAO
-    testImplementation(libs.exposed.jdbc) // Exposed JDBC
-    testImplementation(libs.h2) // In-memory H2 database
-
-
+    testImplementation(libs.junit.jupiter)
+    testImplementation(libs.exposed.core)
+    testImplementation(libs.exposed.dao)
+    testImplementation(libs.exposed.jdbc)
+    testImplementation(libs.h2)
 }
-
 
 tasks.create("stage") {
     dependsOn("installDist")
@@ -95,3 +98,6 @@ tasks.create("stage") {
 tasks.withType<Copy> {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE // Или DuplicatesStrategy.INCLUDE
 }
+
+
+

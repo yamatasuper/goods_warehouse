@@ -9,9 +9,22 @@ import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
 import org.jetbrains.exposed.sql.Database
 
+/**
+ * Основная точка входа в приложение.
+ *
+ * Подключается к базе данных, определяет окружение (`local` или `prod`),
+ * и запускает Ktor сервер с заданной конфигурацией.
+ */
 fun main() {
-    // Подключение к базе данных
+    // Определяем окружение, локальное по умолчанию
     val environment = System.getenv("KTOR_ENV") ?: "local"
+
+    /**
+     * Подключение к базе данных на основе окружения.
+     * Используются переменные окружения для подключения.
+     *
+     * @see System.getenv
+     */
     if (environment == "local") {
         Database.connect(
             url = System.getenv("DATABASE_CONNECTION_STRING"),
@@ -28,8 +41,15 @@ fun main() {
         )
     }
 
-    // Запуск сервера
+    // Определяем порт сервера (по умолчанию 8080)
     val port = System.getenv("SERVER_PORT")?.toIntOrNull() ?: 8080
+
+    /**
+     * Запуск сервера Ktor.
+     *
+     * @param port Порт для запуска сервера.
+     * @see Application.module
+     */
     embeddedServer(
         Netty,
         port = port,
@@ -37,6 +57,11 @@ fun main() {
     ).start(wait = true)
 }
 
+/**
+ * Основной метод конфигурации приложения.
+ *
+ * Загружает окружение (`local` или `prod`) и настраивает модули приложения.
+ */
 fun Application.module() {
     val environmentType = environment.config.propertyOrNull("ktor.deployment.environment")?.getString() ?: "local"
     log.info("Running in environment: $environmentType")
@@ -48,6 +73,11 @@ fun Application.module() {
     }
 }
 
+/**
+ * Конфигурация приложения для локального окружения.
+ *
+ * Настраивает маршруты, сериализацию, Swagger, и обработку ошибок.
+ */
 fun Application.configureLocalFeatures() {
     log.info("Configuring local features")
     configureProductRouting()
@@ -56,6 +86,11 @@ fun Application.configureLocalFeatures() {
     configureStatusPages()
 }
 
+/**
+ * Конфигурация приложения для продакшн окружения.
+ *
+ * Настраивает маршруты, сериализацию, Swagger, и обработку ошибок.
+ */
 fun Application.configureProdFeatures() {
     log.info("Configuring production features")
     configureProductRouting()
@@ -63,5 +98,3 @@ fun Application.configureProdFeatures() {
     configureSwagger()
     configureStatusPages()
 }
-
-
