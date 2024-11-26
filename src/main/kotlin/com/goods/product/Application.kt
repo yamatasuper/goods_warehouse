@@ -1,6 +1,7 @@
 package com.goods.product
 
 import com.goods.product.features.product.configureProductRouting
+import com.goods.product.features.register.configureRegisterRouting
 import com.goods.product.logger.configureStatusPages
 import com.goods.product.plugins.*
 import com.goods.product.swagger.configureSwagger
@@ -84,6 +85,7 @@ fun Application.configureLocalFeatures() {
     configureSerialization()
     configureSwagger()
     configureStatusPages()
+    configureRegisterRouting()
 }
 
 /**
@@ -97,4 +99,5 @@ fun Application.configureProdFeatures() {
     configureSerialization()
     configureSwagger()
     configureStatusPages()
+    configureRegisterRouting()
 }
