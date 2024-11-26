@@ -2,7 +2,7 @@
   "info": {
     "name": "Product API Collection",
     "description": "Collection for testing Product API",
-    "version": "1.0.0"
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
     {
@@ -12,24 +12,29 @@
         "header": [],
         "url": {
           "raw": "{{base_url}}/loadWarehouses",
-          "host": [
-            "{{base_url}}"
-          ],
-          "path": [
-            "loadWarehouses"
-          ]
+          "host": ["{{base_url}}"],
+          "path": ["loadWarehouses"]
         }
       },
       "response": [
         {
-          "code": 200,
           "name": "Successful Response",
-          "body": "[...]",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/loadWarehouses",
+              "host": ["{{base_url}}"],
+              "path": ["loadWarehouses"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "body": "[{\"id\": \"uuid_1\", \"name\": \"Товар 1\", \"sku\": \"SKU001\", \"description\": \"Описание товара 1\", \"category\": \"Категория A\", \"price\": 100.0, \"quantity\": 50, \"last_quantity_update\": \"2024-01-01T00:00:00\", \"created_at\": \"2024-01-01T00:00:00\"}]",
           "header": [
             {
               "key": "Content-Type",
-              "value": "application/json",
-              "description": ""
+              "value": "application/json"
             }
           ]
         }
@@ -51,33 +56,22 @@
         },
         "url": {
           "raw": "{{base_url}}/register",
-          "host": [
-            "{{base_url}}"
-          ],
-          "path": [
-            "register"
-          ]
+          "host": ["{{base_url}}"],
+          "path": ["register"]
         }
       },
       "response": [
         {
+          "name": "User Registered",
+          "status": "Created",
           "code": 201,
-          "name": "Successful Registration",
-          "body": "{\n  \"id\": \"{{uuid}}\",\n  \"username\": \"test_user\"\n}",
+          "body": "{\n  \"id\": \"uuid_1\",\n  \"username\": \"test_user\"\n}",
           "header": [
             {
               "key": "Content-Type",
               "value": "application/json"
             }
           ]
-        },
-        {
-          "code": 400,
-          "name": "Bad Request"
-        },
-        {
-          "code": 500,
-          "name": "Server Error"
         }
       ]
     },
@@ -97,33 +91,22 @@
         },
         "url": {
           "raw": "{{base_url}}/login",
-          "host": [
-            "{{base_url}}"
-          ],
-          "path": [
-            "login"
-          ]
+          "host": ["{{base_url}}"],
+          "path": ["login"]
         }
       },
       "response": [
         {
+          "name": "Login Successful",
+          "status": "OK",
           "code": 200,
-          "name": "Successful Login",
-          "body": "{\n  \"token\": \"{{access_token}}\"\n}",
+          "body": "{\n  \"token\": \"some_jwt_token\"\n}",
           "header": [
             {
               "key": "Content-Type",
               "value": "application/json"
             }
           ]
-        },
-        {
-          "code": 401,
-          "name": "Unauthorized"
-        },
-        {
-          "code": 500,
-          "name": "Server Error"
         }
       ]
     }
