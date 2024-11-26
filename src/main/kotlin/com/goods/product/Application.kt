@@ -1,5 +1,6 @@
 package com.goods.product
 
+import com.goods.product.features.login.configureLoginRouting
 import com.goods.product.features.product.configureProductRouting
 import com.goods.product.features.register.configureRegisterRouting
 import com.goods.product.logger.configureStatusPages
@@ -86,6 +87,7 @@ fun Application.configureLocalFeatures() {
     configureSwagger()
     configureStatusPages()
     configureRegisterRouting()
+    configureLoginRouting()
 }
 
 /**
@@ -100,4 +102,5 @@ fun Application.configureProdFeatures() {
     configureSwagger()
     configureStatusPages()
     configureRegisterRouting()
+    configureLoginRouting()
 }

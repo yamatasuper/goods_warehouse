@@ -1,7 +1,5 @@
 package com.goods.product.database.users
 
-import com.goods.product.features.user.UserChangeReceiveRemote
-import com.goods.product.features.user.UserChangeResponseRemote
 import org.jetbrains.exposed.sql.Table
 import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.insert
@@ -65,24 +63,6 @@ object Users : Table() {
             }
         } catch (e: Exception) {
             null
-        }
-    }
-
-    fun userChangeData(userChangeReceiveRemote: UserChangeReceiveRemote): UserChangeResponseRemote {
-        return try {
-            transaction {
-                val userToUpdate =
-                    Users.select { email.eq(userChangeReceiveRemote.email) }.singleOrNull()
-                userToUpdate?.let {
-                    Users.update({ email.eq(userChangeReceiveRemote.email) }) {
-                        it[password] = userChangeReceiveRemote.password
-                        it[username] = userChangeReceiveRemote.username
-                    }
-                }
-                UserChangeResponseRemote("200")
-            }
-        } catch (e: Exception) {
-            UserChangeResponseRemote("400")
         }
     }
 }

@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   title: Product API
   version: 1.0.0
-  description: API для загрузки данных о продуктах и складах
+  description: API для загрузки данных о продуктах, пользователей и управления сессиями
 components:
   schemas:
     Product:
@@ -54,6 +54,23 @@ components:
         username:
           type: string
           description: Имя пользователя
+    LoginRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          description: Электронная почта
+        password:
+          type: string
+          format: password
+          description: Пароль пользователя
+    LoginResponse:
+      type: object
+      properties:
+        token:
+          type: string
+          description: Токен доступа
 paths:
   /loadWarehouses:
     get:
@@ -90,5 +107,27 @@ paths:
                 $ref: '#/components/schemas/RegisterResponse'
         '400':
           description: Некорректные данные запроса
+        '500':
+          description: Ошибка на сервере
+  /login:
+    post:
+      summary: Авторизация пользователя
+      operationId: performLogin
+      requestBody:
+        description: Данные для входа в систему
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Успешная авторизация
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+        '401':
+          description: Неверные данные для входа
         '500':
           description: Ошибка на сервере

@@ -8,15 +8,10 @@ import io.ktor.server.routing.*
 import java.util.*
 
 fun Application.configureLoginRouting() {
-
     routing {
         post("/login") {
             val loginController = LoginController(call)
             loginController.performLogin()
-        }
-        post("/getUser") {
-            val loginController = LoginController(call)
-            loginController.getUserData()
         }
     }
 }
