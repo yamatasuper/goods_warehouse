@@ -21,6 +21,6 @@ object UUIDSerializer : KSerializer<UUID> {
 
 val json = Json {
     serializersModule = SerializersModule {
-        contextual(UUID::class, UUIDSerializer)  // Регистрация сериализатора
+        contextual(UUID::class, UUIDSerializer)
     }
 }

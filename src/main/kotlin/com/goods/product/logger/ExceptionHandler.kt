@@ -1,5 +1,6 @@
 package com.goods.product.logger
 
+import com.goods.product.utils.Strings
 import io.ktor.server.application.*
 import io.ktor.http.*
 import io.ktor.server.response.*
@@ -19,14 +20,14 @@ fun Application.configureStatusPages() {
 
         status(HttpStatusCode.NotFound) { call, status ->
             call.respondText(
-                text = "404: The requested resource was not found",
+                text = Strings.ERROR_NOT_FOUND,
                 status = status
             )
         }
 
         exception<Throwable> { call, cause ->
             call.respondText(
-                text = "500: ${cause.message ?: "Unknown error occurred"}",
+                text = "500: ${cause.message ?: Strings.ERROR_INTERNAL_SERVER}}",
                 status = HttpStatusCode.InternalServerError
             )
         }

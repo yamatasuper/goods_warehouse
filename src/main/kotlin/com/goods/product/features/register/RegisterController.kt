@@ -9,6 +9,7 @@ import com.goods.product.database.tokens.TokenDTO
 import com.goods.product.database.tokens.Tokens
 import com.goods.product.database.users.UserDTO
 import com.goods.product.database.users.Users
+import com.goods.product.utils.Strings
 import com.goods.product.utils.isValidEmail
 import java.util.*
 
@@ -17,12 +18,12 @@ class RegisterController(private val call: ApplicationCall) {
     suspend fun registerNewUser() {
         val registerReceiveRemote = call.receive<RegisterReceiveRemote>()
         if (!registerReceiveRemote.email.isValidEmail()) {
-            call.respond(HttpStatusCode.BadRequest, "Email is not valid")
+            call.respond(HttpStatusCode.BadRequest,  Strings.ERROR_INVALID_EMAIL)
         }
 
         val userDTO = Users.fetchUserUsingToken(registerReceiveRemote.email)
         if (userDTO != null) {
-            call.respond(HttpStatusCode.Conflict, "User already exists")
+            call.respond(HttpStatusCode.Conflict, Strings.ERROR_USER_ALREADY_EXISTS)
         } else {
             val token = UUID.randomUUID().toString()
 
@@ -36,9 +37,9 @@ class RegisterController(private val call: ApplicationCall) {
                     )
                 )
             } catch (e: ExposedSQLException) {
-                call.respond(HttpStatusCode.Conflict, "User already exists")
+                call.respond(HttpStatusCode.Conflict, Strings.ERROR_USER_ALREADY_EXISTS)
             } catch (e: Exception) {
-                call.respond(HttpStatusCode.BadRequest, "Can't create user ${e.localizedMessage}")
+                call.respond(HttpStatusCode.BadRequest, "${Strings.ERROR_USER_CREATION_FAILED} ${e.localizedMessage}")
             }
 
             Tokens.insert(

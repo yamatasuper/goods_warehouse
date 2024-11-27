@@ -1,5 +1,6 @@
 package com.goods.product.database.users
 
+import com.goods.product.utils.UserDatabaseColumns
 import org.jetbrains.exposed.sql.Table
 import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.insert
@@ -7,10 +8,10 @@ import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.transactions.transaction
 
 object Users : Table() {
-    private val password = Users.varchar("password", 25)
-    private val username = Users.varchar("username", 30)
-    private val email = Users.varchar("email", 25)
-    private val token = Users.varchar("token", 50)
+    private val password = varchar(UserDatabaseColumns.PASSWORD, 25)
+    private val username = varchar(UserDatabaseColumns.USERNAME, 30)
+    private val email = varchar(UserDatabaseColumns.EMAIL, 25)
+    private val token = varchar(UserDatabaseColumns.TOKEN, 50)
 
     fun insert(userDTO: UserDTO) {
         transaction {
