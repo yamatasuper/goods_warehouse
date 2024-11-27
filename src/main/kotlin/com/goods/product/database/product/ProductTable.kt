@@ -5,7 +5,6 @@ import org.jetbrains.exposed.sql.Table
 import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.transactions.transaction
 
-
 data class ProductValidationResult(val isValid: Boolean, val errors: List<String> = emptyList())
 
 object ProductTable : Table() {

@@ -5,7 +5,6 @@ import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.ApplicationCall
 import io.ktor.server.request.receive
 import io.ktor.server.response.respond
-import java.util.UUID
 
 class LoginController(private val call: ApplicationCall) {
     suspend fun performLogin() {

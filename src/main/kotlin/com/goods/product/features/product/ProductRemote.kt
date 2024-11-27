@@ -1,6 +1,5 @@
 package com.goods.product.features.product
 
-import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
 import java.util.UUID
 
