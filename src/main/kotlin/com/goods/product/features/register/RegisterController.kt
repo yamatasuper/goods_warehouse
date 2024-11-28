@@ -14,7 +14,6 @@ import com.goods.product.utils.isValidEmail
 import java.util.*
 
 class RegisterController(private val call: ApplicationCall) {
-
     suspend fun registerNewUser() {
         val registerReceiveRemote = call.receive<RegisterReceiveRemote>()
         if (!registerReceiveRemote.email.isValidEmail()) {
@@ -26,7 +25,6 @@ class RegisterController(private val call: ApplicationCall) {
             call.respond(HttpStatusCode.Conflict, Strings.ERROR_USER_ALREADY_EXISTS)
         } else {
             val token = UUID.randomUUID().toString()
-
             try {
                 Users.insert(
                     UserDTO(

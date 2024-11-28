@@ -6,11 +6,10 @@ import io.ktor.server.routing.get
 import io.ktor.server.routing.routing
 
 fun Application.configureProductRouting() {
-
     routing {
         get("/loadWarehouses") {
-            val coursesController = com.goods.product.features.product.ProductController(call)
-            coursesController.getProductData()
+            val productController = ProductController(call)
+            productController.getProductData()
         }
     }
 }
