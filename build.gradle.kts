@@ -1,9 +1,11 @@
 import io.ktor.plugin.features.*
+import org.jetbrains.dokka.gradle.DokkaTask
 
 plugins {
     application
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.dokka)
     id("io.ktor.plugin") version "2.3.8"
 }
 
@@ -54,6 +56,7 @@ dependencies {
     implementation(libs.ktor.server.content)
     implementation(libs.ktor.server.kotlinx)
     implementation(libs.ktor.server.netty)
+    implementation(libs.ktor.server.status.pages)
 
     // Swagger and OpenAPI
     implementation(libs.ktor.server.swagger)
@@ -62,27 +65,31 @@ dependencies {
     implementation(libs.swagger.core)
     implementation(libs.jackson.dataformat.yaml)
 
+    // Exposed
     implementation(libs.exposed.core)
     implementation(libs.exposed.dao)
     implementation(libs.exposed.jdbc)
 
+    // Database and connection pooling
     implementation(libs.postgress)
     implementation(libs.hikari)
 
+    // Security
     implementation(libs.bcrypt)
 
+    // Logging
     implementation(libs.logback)
     implementation(libs.slf4j.api)
-    implementation(libs.slf4j.simple)
 
+    // Test dependencies
     testImplementation(libs.ktor.server.tests)
     testImplementation(libs.kotlin.tests)
-
-    testImplementation("io.mockk:mockk:1.12.3")
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.7.0")
-    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.7.0")
+    testImplementation(libs.junit.jupiter)
+    testImplementation(libs.exposed.core)
+    testImplementation(libs.exposed.dao)
+    testImplementation(libs.exposed.jdbc)
+    testImplementation(libs.h2)
 }
-
 
 tasks.create("stage") {
     dependsOn("installDist")
@@ -91,3 +98,6 @@ tasks.create("stage") {
 tasks.withType<Copy> {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE // Или DuplicatesStrategy.INCLUDE
 }
+
+
+

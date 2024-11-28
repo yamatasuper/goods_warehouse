@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   title: Product API
   version: 1.0.0
-  description: API для загрузки данных о продуктах и складах
+  description: API для загрузки данных о продуктах, пользователей и управления сессиями
 components:
   schemas:
     Product:
@@ -30,6 +30,47 @@ components:
         createdAt:
           type: string
           format: date-time
+    RegisterRequest:
+      type: object
+      properties:
+        username:
+          type: string
+          description: Имя пользователя
+        email:
+          type: string
+          format: email
+          description: Электронная почта
+        password:
+          type: string
+          format: password
+          description: Пароль пользователя
+    RegisterResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Уникальный идентификатор зарегистрированного пользователя
+        username:
+          type: string
+          description: Имя пользователя
+    LoginRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          description: Электронная почта
+        password:
+          type: string
+          format: password
+          description: Пароль пользователя
+    LoginResponse:
+      type: object
+      properties:
+        token:
+          type: string
+          description: Токен доступа
 paths:
   /loadWarehouses:
     get:
@@ -46,48 +87,47 @@ paths:
                   $ref: '#/components/schemas/Product'
         '500':
           description: Ошибка на сервере
-
-
-#openapi: 3.0.0
-#info:
-#  title: Product API
-#  version: 1.0.0
-#  description: API для загрузки данных о продуктах и складах
-#paths:
-#  /loadWarehouses:
-#    get:
-#      summary: Получение списка продуктов
-#      operationId: getProducts
-#      responses:
-#        '200':
-#          description: Успешный ответ с данными о продуктах
-#          content:
-#            application/json:
-#              schema:
-#                type: array
-#                items:
-#                  type: object
-#                  properties:
-#                    id:
-#                      type: integer
-#                    name:
-#                      type: string
-#                    sku:
-#                      type: string
-#                    description:
-#                      type: string
-#                    category:
-#                      type: string
-#                    price:
-#                      type: number
-#                      format: double
-#                    quantity:
-#                      type: integer
-#                    lastQuantityUpdate:
-#                      type: string
-#                      format: date-time
-#                    createdAt:
-#                      type: string
-#                      format: date-time
-#        '500':
-#          description: Ошибка на сервере
+  /register:
+    post:
+      summary: Регистрация нового пользователя
+      operationId: registerNewUser
+      requestBody:
+        description: Данные для регистрации нового пользователя
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterRequest'
+      responses:
+        '201':
+          description: Пользователь успешно зарегистрирован
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegisterResponse'
+        '400':
+          description: Некорректные данные запроса
+        '500':
+          description: Ошибка на сервере
+  /login:
+    post:
+      summary: Авторизация пользователя
+      operationId: performLogin
+      requestBody:
+        description: Данные для входа в систему
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Успешная авторизация
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+        '401':
+          description: Неверные данные для входа
+        '500':
+          description: Ошибка на сервере

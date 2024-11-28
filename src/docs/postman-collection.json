@@ -2,7 +2,7 @@
   "info": {
     "name": "Product API Collection",
     "description": "Collection for testing Product API",
-    "version": "1.0.0"
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
     {
@@ -12,24 +12,99 @@
         "header": [],
         "url": {
           "raw": "{{base_url}}/loadWarehouses",
-          "host": [
-            "{{base_url}}"
-          ],
-          "path": [
-            "loadWarehouses"
-          ]
+          "host": ["{{base_url}}"],
+          "path": ["loadWarehouses"]
         }
       },
       "response": [
         {
-          "code": 200,
           "name": "Successful Response",
-          "body": "[\n  {\n    \"id\": \"{{uuid_1}}\",\n    \"name\": \"Товар 1\",\n    \"sku\": \"SKU001\",\n    \"description\": \"Описание товара 1\",\n    \"category\": \"Категория A\",\n    \"price\": 100.00,\n    \"quantity\": 50,\n    \"last_quantity_update\": \"2024-01-01T00:00:00\",\n    \"created_at\": \"2024-01-01T00:00:00\"\n  },\n  {\n    \"id\": \"{{uuid_2}}\",\n    \"name\": \"Товар 2\",\n    \"sku\": \"SKU002\",\n    \"description\": \"Описание товара 2\",\n    \"category\": \"Категория B\",\n    \"price\": 200.00,\n    \"quantity\": 30,\n    \"last_quantity_update\": \"2024-01-01T00:00:00\",\n    \"created_at\": \"2024-01-01T00:00:00\"\n  },\n  {\n    \"id\": \"{{uuid_3}}\",\n    \"name\": \"Товар 3\",\n    \"sku\": \"SKU003\",\n    \"description\": \"Описание товара 3\",\n    \"category\": \"Категория A\",\n    \"price\": 150.00,\n    \"quantity\": 20,\n    \"last_quantity_update\": \"2024-01-01T00:00:00\",\n    \"created_at\": \"2024-01-01T00:00:00\"\n  },\n  {\n    \"id\": \"{{uuid_4}}\",\n    \"name\": \"Товар 4\",\n    \"sku\": \"SKU004\",\n    \"description\": \"Описание товара 4\",\n    \"category\": \"Категория C\",\n    \"price\": 250.00,\n    \"quantity\": 10,\n    \"last_quantity_update\": \"2024-01-01T00:00:00\",\n    \"created_at\": \"2024-01-01T00:00:00\"\n  },\n  {\n    \"id\": \"{{uuid_5}}\",\n    \"name\": \"Товар 5\",\n    \"sku\": \"SKU005\",\n    \"description\": \"Описание товара 5\",\n    \"category\": \"Категория B\",\n    \"price\": 300.00,\n    \"quantity\": 0,\n    \"last_quantity_update\": \"2024-01-01T00:00:00\",\n    \"created_at\": \"2024-01-01T00:00:00\"\n  },\n  {\n    \"id\": \"{{uuid_6}}\",\n    \"name\": \"Товар 6\",\n    \"sku\": \"SKU006\",\n    \"description\": \"Описание товара 6\",\n    \"category\": \"Категория A\",\n    \"price\": 180.00,\n    \"quantity\": 25,\n    \"last_quantity_update\": \"2024-01-01T00:00:00\",\n    \"created_at\": \"2024-01-01T00:00:00\"\n  },\n  {\n    \"id\": \"{{uuid_7}}\",\n    \"name\": \"Товар 7\",\n    \"sku\": \"SKU007\",\n    \"description\": \"Описание товара 7\",\n    \"category\": \"Категория C\",\n    \"price\": 120.00,\n    \"quantity\": 15,\n    \"last_quantity_update\": \"2024-01-01T00:00:00\",\n    \"created_at\": \"2024-01-01T00:00:00\"\n  },\n  {\n    \"id\": \"{{uuid_8}}\",\n    \"name\": \"Товар 8\",\n    \"sku\": \"SKU008\",\n    \"description\": \"Описание товара 8\",\n    \"category\": \"Категория B\",\n    \"price\": 90.00,\n    \"quantity\": 40,\n    \"last_quantity_update\": \"2024-01-01T00:00:00\",\n    \"created_at\": \"2024-01-01T00:00:00\"\n  },\n  {\n    \"id\": \"{{uuid_9}}\",\n    \"name\": \"Товар 9\",\n    \"sku\": \"SKU009\",\n    \"description\": \"Описание товара 9\",\n    \"category\": \"Категория A\",\n    \"price\": 130.00,\n    \"quantity\": 5,\n    \"last_quantity_update\": \"2024-01-01T00:00:00\",\n    \"created_at\": \"2024-01-01T00:00:00\"\n  },\n  {\n    \"id\": \"{{uuid_10}}\",\n    \"name\": \"Товар 10\",\n    \"sku\": \"SKU010\",\n    \"description\": \"Описание товара 10\",\n    \"category\": \"Категория C\",\n    \"price\": 220.00,\n    \"quantity\": 12,\n    \"last_quantity_update\": \"2024-01-01T00:00:00\",\n    \"created_at\": \"2024-01-01T00:00:00\"\n  }\n]",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/loadWarehouses",
+              "host": ["{{base_url}}"],
+              "path": ["loadWarehouses"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "body": "[{\"id\": \"uuid_1\", \"name\": \"Товар 1\", \"sku\": \"SKU001\", \"description\": \"Описание товара 1\", \"category\": \"Категория A\", \"price\": 100.0, \"quantity\": 50, \"last_quantity_update\": \"2024-01-01T00:00:00\", \"created_at\": \"2024-01-01T00:00:00\"}]",
           "header": [
             {
               "key": "Content-Type",
-              "value": "application/json",
-              "description": ""
+              "value": "application/json"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Register User",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"test_user\",\n  \"email\": \"test@example.com\",\n  \"password\": \"password123\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/register",
+          "host": ["{{base_url}}"],
+          "path": ["register"]
+        }
+      },
+      "response": [
+        {
+          "name": "User Registered",
+          "status": "Created",
+          "code": 201,
+          "body": "{\n  \"id\": \"uuid_1\",\n  \"username\": \"test_user\"\n}",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Login User",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"test@example.com\",\n  \"password\": \"password123\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/login",
+          "host": ["{{base_url}}"],
+          "path": ["login"]
+        }
+      },
+      "response": [
+        {
+          "name": "Login Successful",
+          "status": "OK",
+          "code": 200,
+          "body": "{\n  \"token\": \"some_jwt_token\"\n}",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
             }
           ]
         }
