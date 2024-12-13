@@ -11,21 +11,6 @@ CREATE TABLE product
     created_at              TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE tokens
-(
-    id    varchar(80) primary key,
-    email varchar(80) not null,
-    token varchar(80) not null
-);
-
-CREATE TABLE users
-(
-    token    varchar(80) not null,
-    password varchar(80) not null,
-    username varchar(80),
-    email    varchar(80) primary key
-);
-
 INSERT INTO product (id, name, sku, description, category, price, quantity)
 VALUES
     (gen_random_uuid(), 'Товар 1', 'SKU001', 'Описание товара 1', 'Категория A', 100.00, 50),
