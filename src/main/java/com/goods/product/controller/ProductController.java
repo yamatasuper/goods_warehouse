@@ -19,10 +19,10 @@ public class ProductController {
         return productService.getAllProducts();
     }
 
-    @PostMapping
-    public Product createProduct(@RequestBody Product product) {
-        return productService.saveProduct(product);
-    }
+//    @PostMapping
+//    public Product createProduct(@RequestBody Product product) {
+//        return productService.saveProduct(product);
+//    }
 
     @GetMapping("/{id}")
     public Product getProductById(@PathVariable Long id) {
