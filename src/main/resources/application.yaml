@@ -9,7 +9,7 @@ spring:
     password: password
     driver-class-name: org.h2.Driver
   liquibase:
-    change-log: classpath:db/changelog/db.changelog-master.yaml
+    change-log: classpath:db/changelog/initial-schema.xml
     enabled: true
   h2:
     console:
