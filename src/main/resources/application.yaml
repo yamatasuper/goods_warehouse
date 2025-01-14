@@ -1,17 +1,8 @@
 spring:
-  jpa:
-    show-sql: true
-    hibernate:
-      ddl-auto: none
-  datasource:
-    url: jdbc:h2:mem:goods-warehouse;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-    username: sa
-    password: password
-    driver-class-name: org.h2.Driver
-  liquibase:
-    change-log: classpath:db/changelog/initial-schema.xml
-    enabled: true
   h2:
     console:
       enabled: true
-
+  jpa:
+    show-sql: true
+    properties:
+      hibernate.format_sql: true
