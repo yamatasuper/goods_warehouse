@@ -1,10 +1,10 @@
 databaseChangeLog:
   - changeSet:
       id: 1
-      author: aleks_usharovskii
+      author: artemmovchan
       changes:
         - createTable:
-            tableName: user
+            tableName: product
             columns:
               - column:
                   name: id
@@ -14,91 +14,100 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: username
-                  type: varchar(255)
-                  constraints:
-                    unique: true
-                    nullable: false
-              - column:
-                  name: password
+                  name: name
                   type: varchar(255)
                   constraints:
                     nullable: false
               - column:
-                  name: first_name
+                  name: sku
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: text
+              - column:
+                  name: category
                   type: varchar(255)
               - column:
-                  name: last_name
+                  name: price
+                  type: decimal(10, 2)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: quantity
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: last_quantity_update
                   type: varchar(255)
               - column:
-                  name: email
+                  name: created_at
                   type: varchar(255)
+                  constraints:
+                    nullable: false
 
   - changeSet:
       id: 2
-      author: aleks_usharovskii
+      author: artemmovchan
       changes:
         - insert:
-            tableName: user
+            tableName: product
             columns:
               - column:
-                  name: username
-                  value: "john_doe"
+                  name: name
+                  value: "Laptop"
               - column:
-                  name: password
-                  value: "password123"
+                  name: sku
+                  value: "LAP12345"
               - column:
-                  name: first_name
-                  value: "John"
+                  name: description
+                  value: "High-performance laptop"
               - column:
-                  name: last_name
-                  value: "Doe"
+                  name: category
+                  value: "Electronics"
               - column:
-                  name: email
-                  value: "john.doe@example.com"
+                  name: price
+                  value: "999.99"
+              - column:
+                  name: quantity
+                  value: "50"
+              - column:
+                  name: last_quantity_update
+                  value: "2025-01-14"
+              - column:
+                  name: created_at
+                  value: "2025-01-01"
 
   - changeSet:
       id: 3
-      author: aleks_usharovskii
+      author: artemmovchan
       changes:
         - insert:
-            tableName: user
+            tableName: product
             columns:
               - column:
-                  name: username
-                  value: "jane_smith"
+                  name: name
+                  value: "Smartphone"
               - column:
-                  name: password
-                  value: "securepassword"
+                  name: sku
+                  value: "SM12345"
               - column:
-                  name: first_name
-                  value: "Jane"
+                  name: description
+                  value: "Latest model smartphone"
               - column:
-                  name: last_name
-                  value: "Smith"
+                  name: category
+                  value: "Electronics"
               - column:
-                  name: email
-                  value: "jane.smith@example.com"
-
-  - changeSet:
-      id: 4
-      author: aleks_usharovskii
-      changes:
-        - insert:
-            tableName: user
-            columns:
+                  name: price
+                  value: "799.99"
               - column:
-                  name: username
-                  value: "alice_williams"
+                  name: quantity
+                  value: "100"
               - column:
-                  name: password
-                  value: "alicepassword"
+                  name: last_quantity_update
+                  value: "2025-01-14"
               - column:
-                  name: first_name
-                  value: "Alice"
-              - column:
-                  name: last_name
-                  value: "Williams"
-              - column:
-                  name: email
-                  value: "alice.williams@example.com"
+                  name: created_at
+                  value: "2025-01-01"
