@@ -57,7 +57,7 @@
         </insert>
     </changeSet>
 
-    <changeSet id="4" author="aleks_usharovskii">
+    <changeSet id="4" author="artemmovchan">
         <insert tableName="product">
             <column name="name" value="Headphones"/>
             <column name="sku" value="HP12345"/>
