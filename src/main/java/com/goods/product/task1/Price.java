@@ -14,17 +14,17 @@ public class Price {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "your_table_id_seq")
-    private Long id;
+    private Long idbig;
 
     private Double valueprice;
 
     // Геттеры и сеттеры
     public Long getId() {
-        return id;
+        return idbig;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.idbig = id;
     }
 
     public Double getValue() {
