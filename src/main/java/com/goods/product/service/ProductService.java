@@ -5,7 +5,11 @@ import com.goods.product.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
+
+import jakarta.transaction.Transactional;
+
 
 @Service
 public class ProductService {
@@ -25,5 +29,12 @@ public class ProductService {
         return productRepository.findById(id).orElse(null);
     }
 
-    // Методы валидации, если необходимо
+    @Transactional
+    public void updateProductPrices() {
+        List<Product> products = productRepository.findAll();
+        products.forEach(product -> {
+            product.setPrice(product.getPrice().multiply(BigDecimal.valueOf(1.1))); // Example price increase
+            productRepository.save(product);
+        });
+    }
 }

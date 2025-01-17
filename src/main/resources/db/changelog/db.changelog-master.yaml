@@ -134,3 +134,9 @@ databaseChangeLog:
                   type: decimal(10, 2)
                   constraints:
                     nullable: false
+  - changeSet:
+      id: 5
+      author: artemmovchan
+      changes:
+        - sqlFile:
+            path: db/changelog/generate_data.sql
