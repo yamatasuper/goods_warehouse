@@ -2,30 +2,26 @@ spring:
   liquibase:
     enabled: false
   datasource:
-    url: jdbc:h2:mem:goods-warehouse-local;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;TRACE_LEVEL_FILE=0;CACHE_SIZE=65536;INIT=RUNSCRIPT FROM 'classpath:schema.sql'
-    username: sa
-    password: password
-    driver-class-name: org.h2.Driver
+    url: jdbc:postgresql://localhost:5432/postgres # URL подключения к PostgreSQL
+    username: postgres_user # Имя пользователя базы данных
+    password: postgres_password # Пароль пользователя базы данных
+    driver-class-name: org.postgresql.Driver # Класс драйвера для PostgreSQL
     hikari:
-      maximum-pool-size: 10   # Максимальное количество соединений
-      minimum-idle: 2         # Минимальное количество простаивающих соединений
-      idle-timeout: 10000     # Тайм-аут простоя (в миллисекундах)
-      max-lifetime: 1800000   # Максимальное время жизни соединения (в миллисекундах)
+      maximum-pool-size: 10 # Максимальное количество соединений в пуле
+      minimum-idle: 2 # Минимальное количество соединений, которые остаются открытыми
+      idle-timeout: 30000 # Время ожидания соединения в миллисекундах
+      max-lifetime: 1800000 # Максимальное время жизни соединения в миллисекундах
+
   jpa:
     hibernate:
-      ddl-auto: update
-      dialect: org.hibernate.dialect.H2Dialect
-      properties:
-        hibernate:
-          show_sql: true
-          format_sql: true
-          use_sql_comments: true
-          jdbc:
-            batch_size: 1000  # Batch size for inserts
-          order_inserts: true  # Order inserts to optimize batch processing
-
+      ddl-auto: update # Автоматическое создание и обновление схемы базы данных
+      dialect: org.hibernate.dialect.PostgreSQLDialect # Явное указание диалекта PostgreSQL
     properties:
       hibernate:
-        show_sql: true
-        format_sql: true
-        use_sql_comments: true
+        show_sql: true # Включить вывод SQL-запросов в консоль
+        format_sql: true # Форматировать SQL-запросы для удобства чтения
+        use_sql_comments: true # Добавлять комментарии в SQL-запросы
+        jdbc:
+          batch_size: 1000 # Размер батча для вставок
+        order_inserts: true # Оптимизация порядка вставок
+        flush.mode: MANUAL # Ручное управление flush для повышения производительности
