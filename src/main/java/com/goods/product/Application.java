@@ -1,18 +1,21 @@
 package com.goods.product;
 
-import com.goods.product.task1.DataGeneratorService;
+import com.goods.product.task1.BatchGenerationService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 import java.util.Arrays;
 
 @SpringBootApplication
+@EnableAsync
 public class Application implements CommandLineRunner {
 
     @Autowired
-    private DataGeneratorService dataGeneratorService;
+    private BatchGenerationService batchGenerationService;
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
@@ -22,8 +25,12 @@ public class Application implements CommandLineRunner {
     public void run(String... args) throws Exception {
         System.out.println("Arguments passed to the application: " + Arrays.toString(args));
         if (args.length > 0 && args[0].equals("generate-data")) {
-            dataGeneratorService.generateData(1000000);  // Генерация 1 миллиона записей
+            int totalRecords = 100000;
+            int batchSize = 1000;
+
+            // Используем Spring-managed bean
+            batchGenerationService.generateData(totalRecords, batchSize);
         }
     }
-
 }
+
