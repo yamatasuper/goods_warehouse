@@ -21,28 +21,22 @@ public class DataGeneratorService {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    public CompletableFuture<Void> generateBatch(int start, int batchSize) {
-        return CompletableFuture.runAsync(() -> {
-            try {
-                List<Object[]> batchArgs = new ArrayList<>();
-                for (int i = start; i < start + batchSize; i++) {
-                    Object[] args = new Object[]{
-                            "Product " + i,
-                            "SKU" + i,
-                            "Description for product " + i,
-                            "Category" + (i % 5),
-                            BigDecimal.valueOf(100 + (i % 100)),
-                            10 + (i % 50),
-                            "2025-01-14", // Last quantity update
-                            "2025-01-01"  // Created at
-                    };
-                    batchArgs.add(args);
-                }
-                String sql = "INSERT INTO product (name, sku, description, category, price, quantity, last_quantity_update, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-                jdbcTemplate.batchUpdate(sql, batchArgs);
-            } catch (Exception e) {
-                throw new CompletionException("Error in batch generation", e);
-            }
-        });
+    public void generateBatch(int start, int batchSize) {
+        List<Object[]> batchArgs = new ArrayList<>();
+        for (int i = start; i < start + batchSize; i++) {
+            batchArgs.add(new Object[]{
+                    "Product " + i,
+                    "SKU" + i,
+                    "Description for product " + i,
+                    "Category" + (i % 5),
+                    BigDecimal.valueOf(100 + (i % 100)),
+                    10 + (i % 50),
+                    "2025-01-14", // Last quantity update
+                    "2025-01-01"  // Created at
+            });
+        }
+
+        String sql = "INSERT INTO product (name, sku, description, category, price, quantity, last_quantity_update, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        jdbcTemplate.batchUpdate(sql, batchArgs);
     }
 }
