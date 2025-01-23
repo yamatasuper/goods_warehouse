@@ -33,3 +33,7 @@ spring:
 #    org.hibernate: WARN # Уровень логов Hibernate
 #    com.zaxxer.hikari: WARN # Уровень логов HikariCP
 #    com.goods_warehouse: INFO
+
+#logging:
+#  level:
+#    root: INFO # Общий уровень логов, из за этого 1 гб оперативной тратится

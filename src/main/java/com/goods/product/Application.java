@@ -28,7 +28,7 @@ public class Application implements CommandLineRunner {
         System.out.println("Arguments passed to the application: " + Arrays.toString(args));
         if (args.length > 0 && args[0].equals("generate-data")) {
             int totalRecords = 1000000;
-            int batchSize = 1000;
+            int batchSize = 10000;
 
             // Используем Spring-managed bean
             batchGenerationService.generateData(totalRecords, batchSize);
