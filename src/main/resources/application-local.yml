@@ -19,17 +19,17 @@ spring:
           order_inserts: true  # Order inserts to optimize batch processing
 
 # Добавляем настройки шедулеров
-app:
-  scheduling:
-    enabled: true
+#app:
+#  scheduling:
+#    enabled: true
 
-scheduling:
-  optimization: false
+#scheduling:
+#  optimization: false
 
-logging:
-  level:
-    root: WARN # Общий уровень логов
-    org.springframework: WARN # Уровень логов Spring
-    org.hibernate: WARN # Уровень логов Hibernate
-    com.zaxxer.hikari: WARN # Уровень логов HikariCP
-    com.goods_warehouse: INFO
+#logging:
+#  level:
+#    root: INFO # Общий уровень логов, из за этого 1 гб оперативной тратится
+#    org.springframework: WARN # Уровень логов Spring
+#    org.hibernate: WARN # Уровень логов Hibernate
+#    com.zaxxer.hikari: WARN # Уровень логов HikariCP
+#    com.goods_warehouse: INFO
