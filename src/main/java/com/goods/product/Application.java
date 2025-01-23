@@ -1,6 +1,6 @@
 package com.goods.product;
 
-import com.goods.product.task1.BatchGenerationService;
+import com.goods.product.task1.service.BatchGenerationService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;

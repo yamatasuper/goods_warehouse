@@ -9,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import jakarta.persistence.Version;
 
 @Entity
 @Table(name = "product")
@@ -20,6 +21,8 @@ public class Product {
     @Column(name = "id")
     private Long id;
 
+    @Version
+    private Integer version;
 
     @Column(name = "name", nullable = false)
     private String name;

@@ -1,4 +1,4 @@
-package com.goods.product.task1;
+package com.goods.product.task1.scheduler;
 import com.goods.product.model.Product;
 import com.goods.product.repository.ProductRepository;
 

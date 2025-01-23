@@ -1,14 +1,10 @@
-package com.goods.product.task1;
+package com.goods.product.task1.logs;
 
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
 
 @Service
 public class FileLogger {

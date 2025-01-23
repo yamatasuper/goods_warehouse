@@ -1,4 +1,7 @@
-package com.goods.product.task1;
+package com.goods.product.task1.service;
+
+import com.goods.product.task1.logs.FileLogger;
+import com.goods.product.task1.logs.TimeMeasured;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

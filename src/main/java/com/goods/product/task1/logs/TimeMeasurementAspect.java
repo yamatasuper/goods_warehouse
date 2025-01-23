@@ -1,4 +1,4 @@
-package com.goods.product.task1;
+package com.goods.product.task1.logs;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;

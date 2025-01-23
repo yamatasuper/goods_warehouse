@@ -1,4 +1,4 @@
-package com.goods.product.task1;
+package com.goods.product.task1.logs;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.After;
