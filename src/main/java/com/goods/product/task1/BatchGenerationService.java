@@ -28,12 +28,12 @@ public class BatchGenerationService {
             // Обрабатываем каждый батч
             for (int i = 0; i < batchCount; i++) {
                 int start = i * batchSize;
-                System.out.println("Submitting batch: " + (i + 1) + "/" + batchCount + ", Start index: " + start);
+                //System.out.println("Submitting batch: " + (i + 1) + "/" + batchCount + ", Start index: " + start);
 
                 executor.submit(() -> {
                     try {
                         dataGeneratorService.generateBatch(start, batchSize);
-                        System.out.println("Batch completed: Start index " + start);
+                        //System.out.println("Batch completed: Start index " + start);
                     } catch (Exception e) {
                         System.err.println("Error in batch processing: Start index " + start);
                         e.printStackTrace();

@@ -1,6 +1,4 @@
 package com.goods.product.task1;
-
-import com.goods.product.task1.ExecutionTime;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.After;
