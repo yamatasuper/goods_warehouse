@@ -22,9 +22,9 @@ public class DataGeneratorService {
                     "Category" + (i % 5),
                     BigDecimal.valueOf(100 + (i % 100)),
                     10 + (i % 50),
-                    "2025-01-14", // Last quantity update
-                    "2025-01-01",  // Created at
-                    0 // version
+                    "2025-01-14",
+                    "2025-01-01",
+                    0
             });
         }
 

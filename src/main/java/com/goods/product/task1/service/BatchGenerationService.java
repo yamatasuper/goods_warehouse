@@ -17,7 +17,7 @@ public class BatchGenerationService {
     private DataGeneratorService dataGeneratorService;
 
     @Autowired
-    private FileLogger fileLogger; // Инжектируем FileLogger
+    private FileLogger fileLogger;
 
     @TimeMeasured
     public void generateData(int totalRecords, int batchSize) {
@@ -27,7 +27,7 @@ public class BatchGenerationService {
         int batchCount = (int) Math.ceil((double) totalRecords / batchSize);
         System.out.println("Total batches to process: " + batchCount);
 
-        int maxThreads = Math.min(batchCount, Runtime.getRuntime().availableProcessors());
+        int maxThreads = Math.min(64, Runtime.getRuntime().availableProcessors() * 4);
         ExecutorService executor = Executors.newFixedThreadPool(maxThreads);
 
         try {
@@ -38,7 +38,6 @@ public class BatchGenerationService {
                     try {
                         dataGeneratorService.generateBatch(start, batchSize);
 
-                        // Логирование успешного выполнения батча
                         fileLogger.logToFile("data_generation.log",
                                 "Batch completed successfully: Start index " + start +
                                         ", Batch size: " + batchSize);
@@ -47,7 +46,6 @@ public class BatchGenerationService {
                         System.err.println("Error in batch processing: Start index " + start);
                         e.printStackTrace();
 
-                        // Логирование ошибки
                         fileLogger.logToFile("data_generation.log",
                                 "Batch failed: Start index " + start + ", Error: " + e.getMessage());
                     }
