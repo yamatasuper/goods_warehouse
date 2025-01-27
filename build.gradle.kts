@@ -141,11 +141,15 @@ dependencies {
     // H2 database (in-memory database for testing or development)
     runtimeOnly("com.h2database:h2")
 
+    // Liquibase for database migrations
     implementation("org.liquibase:liquibase-core:4.22.0")
 
-    // Testing dependencies
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    // JUnit 5 (JUnit Jupiter)
     testImplementation("org.junit.jupiter:junit-jupiter:5.10.0")
+
+    // Spring Boot Test Starter (includes autoconfigure for testing)
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.springframework.boot:spring-boot-test-autoconfigure")
 }
 
 tasks.withType<Test> {
