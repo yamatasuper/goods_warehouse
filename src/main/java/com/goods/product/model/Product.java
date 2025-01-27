@@ -1,6 +1,7 @@
 package com.goods.product.model;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -46,7 +47,8 @@ public class Product {
     private String lastQuantityUpdate;
 
     @Column(name = "created_at", nullable = false)
-    private String createdAt;
+    private LocalDateTime createdAt;
+
 
     // Getters and setters
     public Long getId() {
@@ -113,11 +115,11 @@ public class Product {
         this.lastQuantityUpdate = lastQuantityUpdate;
     }
 
-    public String getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(String createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 }

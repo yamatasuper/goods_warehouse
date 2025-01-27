@@ -18,6 +18,8 @@ spring:
           use_sql_comments: true
           order_inserts: true  # Order inserts to optimize batch processing
 
+server:
+  port: 8083  # Установите желаемый порт
 # Добавляем настройки шедулеров
 #app:
 
