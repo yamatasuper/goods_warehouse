@@ -1,31 +1,14 @@
 package com.goods.product.model;
 
 import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
+@AllArgsConstructor
 public class ProductValidationResult {
-
-    private boolean valid;
-    private List<String> errors;
-
-    public ProductValidationResult(boolean valid, List<String> errors) {
-        this.valid = valid;
-        this.errors = errors;
-    }
-
-    public boolean isValid() {
-        return valid;
-    }
-
-    public void setValid(boolean valid) {
-        this.valid = valid;
-    }
-
-    public List<String> getErrors() {
-        return errors;
-    }
-
-    public void setErrors(List<String> errors) {
-        this.errors = errors;
-    }
+  private boolean valid;
+  private List<String> errors;
 }
-

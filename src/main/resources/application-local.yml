@@ -1,0 +1,39 @@
+spring:
+  liquibase:
+    enabled: false
+  datasource:
+    # Увеличиваем кеш
+    url: jdbc:h2:mem:goods-warehouse-local;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;TRACE_LEVEL_FILE=0;CACHE_SIZE=8388608;MAX_MEMORY_ROWS=1000000;MAX_MEMORY_UNDO=1000000;INIT=RUNSCRIPT FROM 'classpath:schema.sql'
+    username: sa
+    password: password
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+      dialect: org.hibernate.dialect.H2Dialect
+      properties:
+        hibernate:
+          show_sql: true
+          format_sql: true
+          use_sql_comments: true
+          order_inserts: true  # Order inserts to optimize batch processing
+
+server:
+  port: 8083  # Установите желаемый порт
+# Добавляем настройки шедулеров
+#app:
+
+#scheduling:
+#  optimization: false
+
+#logging:
+#  level:
+#    root: INFO # Общий уровень логов, из за этого 1 гб оперативной тратится
+#    org.springframework: WARN # Уровень логов Spring
+#    org.hibernate: WARN # Уровень логов Hibernate
+#    com.zaxxer.hikari: WARN # Уровень логов HikariCP
+#    com.goods_warehouse: INFO
+
+#logging:
+#  level:
+#    root: INFO # Общий уровень логов, из за этого 1 гб оперативной тратится

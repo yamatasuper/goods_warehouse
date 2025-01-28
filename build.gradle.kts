@@ -103,6 +103,7 @@ plugins {
     java
     id("org.springframework.boot") version "3.4.1"
     id("io.spring.dependency-management") version "1.1.7"
+    id("com.diffplug.spotless") version "6.21.0"
 }
 
 group = "com.example"
@@ -141,11 +142,28 @@ dependencies {
     // H2 database (in-memory database for testing or development)
     runtimeOnly("com.h2database:h2")
 
-    // Testing dependencies
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    // Liquibase for database migrations
+    implementation("org.liquibase:liquibase-core:4.22.0")
+
+    // Lombok
+    compileOnly("org.projectlombok:lombok:1.18.30")
+    annotationProcessor("org.projectlombok:lombok:1.18.30")
+
+    // JUnit 5 (JUnit Jupiter)
     testImplementation("org.junit.jupiter:junit-jupiter:5.10.0")
+
+    // Spring Boot Test Starter (includes autoconfigure for testing)
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.springframework.boot:spring-boot-test-autoconfigure")
 }
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+spotless {
+    java {
+        target("src/**/*.java")
+        googleJavaFormat() // Использует Google Java Style Guide
+    }
 }

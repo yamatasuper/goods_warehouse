@@ -1,18 +1,18 @@
-CREATE TABLE IF NOT EXISTS product (
-    id INT PRIMARY KEY,
-    name VARCHAR(255),
-    sku VARCHAR(255),
-    description TEXT,
-    category VARCHAR(255),
-    price DECIMAL(10, 2),
-    quantity INT,
-    last_quantity_update VARCHAR(255),
-    created_at VARCHAR(255)
-);
+-- CREATE TABLE IF NOT EXISTS product (
+--    id INT PRIMARY KEY,
+--    name VARCHAR(255),
+--    sku VARCHAR(255),
+--    description TEXT,
+--    category VARCHAR(255),
+--    price DECIMAL(10, 2),
+--   quantity INT,
+--   last_quantity_update VARCHAR(255),
+--   created_at VARCHAR(255)
+-- );
 
-INSERT INTO product (id, name, sku, description, category, price, quantity, last_quantity_update, created_at)
-VALUES (1,'Product 1', 'SKU1', 'Description 1', 'Category 1', 100.00, 10, '2024-12-25', '2024-12-25'),
-       (2,'Product 2', 'SKU2', 'Description 2', 'Category 2', 200.00, 20, '2024-12-25', '2024-12-25');
+-- INSERT INTO product (id, name, sku, description, category, price, quantity, last_quantity_update, created_at)
+-- VALUES (1,'Product 1', 'SKU1', 'Description 1', 'Category 1', 100.00, 10, '2024-12-25', '2024-12-25'),
+--       (2,'Product 2', 'SKU2', 'Description 2', 'Category 2', 200.00, 20, '2024-12-25', '2024-12-25');
 
 -- Kotlin
 --

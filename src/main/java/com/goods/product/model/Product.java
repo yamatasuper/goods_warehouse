@@ -1,95 +1,52 @@
 package com.goods.product.model;
 
-import java.math.BigDecimal;
-
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
+import jakarta.persistence.Version;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
+@Table(name = "product")
+@Getter
+@Setter
 public class Product {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String name;
-    private String sku;
-    private String description;
-    private String category;
-    private BigDecimal price;
-    private Integer quantity;
-    private String lastQuantityUpdate;
-    private String createdAt;
+  @Id
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_seq")
+  @SequenceGenerator(name = "product_seq", sequenceName = "product_id_seq", allocationSize = 1)
+  @Column(name = "id")
+  private Long id;
 
-    public Long getId() {
-        return id;
-    }
+  @Version private Integer version;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+  @Column(name = "name", nullable = false)
+  private String name;
 
-    public String getName() {
-        return name;
-    }
+  @Column(name = "sku", nullable = false)
+  private String sku;
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  @Column(name = "description")
+  private String description;
 
-    public String getSku() {
-        return sku;
-    }
+  @Column(name = "category")
+  private String category;
 
-    public void setSku(String sku) {
-        this.sku = sku;
-    }
+  @Column(name = "price", nullable = false)
+  private BigDecimal price;
 
-    public String getDescription() {
-        return description;
-    }
+  @Column(name = "quantity", nullable = false)
+  private Integer quantity;
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+  @Column(name = "last_quantity_update")
+  private String lastQuantityUpdate;
 
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
-
-    public String getLastQuantityUpdate() {
-        return lastQuantityUpdate;
-    }
-
-    public void setLastQuantityUpdate(String lastQuantityUpdate) {
-        this.lastQuantityUpdate = lastQuantityUpdate;
-    }
-
-    public String getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
-    }
+  @Column(name = "created_at", nullable = false)
+  private LocalDateTime createdAt;
 }
