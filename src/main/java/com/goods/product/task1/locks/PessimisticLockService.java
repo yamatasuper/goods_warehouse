@@ -10,15 +10,13 @@ import jakarta.transaction.Transactional;
 
 @Service
 public class PessimisticLockService {
-
     @Autowired
     private ProductRepository productRepository;
 
     @Transactional
     public void updateProductNameWithLock(Long productId, String newName) {
         Product product = productRepository.findByIdAndLock(productId);
-        product.setName(newName); // Изменяем данные
-        // После транзакции изменения будут сохранены
+        product.setName(newName);
     }
 }
 

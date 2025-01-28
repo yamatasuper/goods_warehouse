@@ -1,14 +1,25 @@
 package com.goods.product.task2.exceptions;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Entity
-public class Remark {
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
+import jakarta.validation.constraints.NotBlank;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+public class Remark {
     @Id
     @GeneratedValue
     private UUID id;
@@ -29,50 +40,11 @@ public class Remark {
         this.createdAt = LocalDateTime.now();
     }
 
-    // Удобный конструктор для создания объектов Remark
     public Remark(String description, RemarkType type) {
         this.description = description;
         this.type = type;
     }
-
-    // Пустой конструктор для JPA
-    public Remark() {
-    }
-
-    // Getters and setters (если требуются)
-
-    // Getters and setters
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public RemarkType getType() {
-        return type;
-    }
-
-    public void setType(RemarkType type) {
-        this.type = type;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
 }
+
 
 

@@ -11,11 +11,10 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Component
 public class TimeMeasurementAspect {
-
     private static final Logger LOGGER = LoggerFactory.getLogger(TimeMeasurementAspect.class);
 
     @Autowired
-    private FileLogger fileLogger; // Инжектируем FileLogger для записи в файл
+    private FileLogger fileLogger;
 
     @Around("@annotation(TimeMeasured)")
     public Object measureTime(ProceedingJoinPoint joinPoint) throws Throwable {
@@ -28,10 +27,8 @@ public class TimeMeasurementAspect {
 
             String logMessage = String.format("Execution time of %s: %d ms", joinPoint.getSignature(), executionTime);
 
-            // Логируем в консоль
             LOGGER.info(logMessage);
 
-            // Логируем в файл
             fileLogger.logToFile("method_execution_time.log", logMessage);
         }
     }

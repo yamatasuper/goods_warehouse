@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class OptimisticLockService {
-
     @Autowired
     private ProductRepository productRepository;
 
@@ -17,11 +16,7 @@ public class OptimisticLockService {
     public void updateProductNameWithOptimisticLock(Long productId, String newName) {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new RuntimeException("Product not found"));
-
-        product.setName(newName); // Изменяем данные
-
-        // Если версия будет изменена другим процессом до commit,
-        // Spring выбросит OptimisticLockException
+        product.setName(newName);
     }
 }
 

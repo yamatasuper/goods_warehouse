@@ -10,7 +10,6 @@ import jakarta.annotation.PostConstruct;
 
 @Component
 public class RemarkDataInitializer {
-
     @Autowired
     private RemarkRepository remarkRepository;
 

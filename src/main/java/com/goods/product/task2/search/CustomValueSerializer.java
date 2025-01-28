@@ -15,7 +15,7 @@ public class CustomValueSerializer extends JsonSerializer<Object> {
         } else if (value instanceof Number) {
             gen.writeNumber(value.toString());
         } else {
-            gen.writeObject(value); // Для всех остальных типов
+            gen.writeObject(value);
         }
     }
 }

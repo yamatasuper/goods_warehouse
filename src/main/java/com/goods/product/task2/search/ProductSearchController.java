@@ -18,7 +18,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/products")
 public class ProductSearchController {
-
     private final ProductRepository productRepository;
 
     public ProductSearchController(ProductRepository productRepository) {
@@ -37,7 +36,6 @@ public class ProductSearchController {
 
         return ResponseEntity.ok(result);
     }
-
 }
 
 

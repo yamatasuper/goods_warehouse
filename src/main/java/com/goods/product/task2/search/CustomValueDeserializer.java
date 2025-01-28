@@ -14,17 +14,14 @@ public class CustomValueDeserializer extends JsonDeserializer<Object> {
     public Object deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JsonProcessingException {
         JsonNode node = p.getCodec().readTree(p);
 
-        // Если это строка, пытаемся десериализовать как строку
         if (node.isTextual()) {
             return node.asText();
         }
 
-        // Если это число, пытаемся преобразовать в Double или BigDecimal
         if (node.isNumber()) {
-            return node.asDouble(); // Можно использовать BigDecimal, если необходимо
+            return node.asDouble();
         }
 
-        // Если не поддерживаемый тип
         return node;
     }
 }

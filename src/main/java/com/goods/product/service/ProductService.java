@@ -13,7 +13,6 @@ import jakarta.transaction.Transactional;
 
 @Service
 public class ProductService {
-
     @Autowired
     private ProductRepository productRepository;
 
@@ -33,7 +32,7 @@ public class ProductService {
     public void updateProductPrices() {
         List<Product> products = productRepository.findAll();
         products.forEach(product -> {
-            product.setPrice(product.getPrice().multiply(BigDecimal.valueOf(1.1))); // Example price increase
+            product.setPrice(product.getPrice().multiply(BigDecimal.valueOf(1.1)));
             productRepository.save(product);
         });
     }

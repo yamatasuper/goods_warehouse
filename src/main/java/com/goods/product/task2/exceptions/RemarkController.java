@@ -9,7 +9,6 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/remarks")
 public class RemarkController {
-
     @Autowired
     private RemarkRepository remarkRepository;
 

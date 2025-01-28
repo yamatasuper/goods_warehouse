@@ -45,8 +45,8 @@ public class DynamicSpecification<T> implements Specification<T> {
                 case "greater_than_or_eq":
                     if (Comparable.class.isAssignableFrom(fieldType)) {
                         predicates.add(builder.greaterThanOrEqualTo(
-                                (Expression<? extends Comparable>) path, // Ensure the path is cast to Comparable
-                                (Comparable) convertValue(criteria.getValue(), fieldType) // Match the type
+                                (Expression<? extends Comparable>) path,
+                                (Comparable) convertValue(criteria.getValue(), fieldType)
                         ));
                     } else {
                         throw new IllegalArgumentException("Field type is not comparable for '>=': " + fieldType);
@@ -57,8 +57,8 @@ public class DynamicSpecification<T> implements Specification<T> {
                 case "less_than_or_eq":
                     if (Comparable.class.isAssignableFrom(fieldType)) {
                         predicates.add(builder.lessThanOrEqualTo(
-                                (Expression<? extends Comparable>) path, // Ensure the path is cast to Comparable
-                                (Comparable) convertValue(criteria.getValue(), fieldType) // Match the type
+                                (Expression<? extends Comparable>) path,
+                                (Comparable) convertValue(criteria.getValue(), fieldType)
                         ));
                     } else {
                         throw new IllegalArgumentException("Field type is not comparable for '<=': " + fieldType);
@@ -85,11 +85,6 @@ public class DynamicSpecification<T> implements Specification<T> {
         return builder.and(predicates.toArray(new Predicate[0]));
     }
 
-
-
-    /**
-     * Конвертирует значение из JSON в целевой тип поля.
-     */
     private Object convertValue(Object value, Class<?> targetType) {
         if (value == null) {
             return null;
@@ -108,7 +103,6 @@ public class DynamicSpecification<T> implements Specification<T> {
         }
 
         if (targetType.equals(BigDecimal.class)) {
-            // Handle BigDecimal conversion
             return new BigDecimal(value.toString());
         }
 
@@ -128,7 +122,4 @@ public class DynamicSpecification<T> implements Specification<T> {
 
         throw new IllegalArgumentException("Unsupported target type: " + targetType);
     }
-
-
-
 }

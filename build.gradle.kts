@@ -144,6 +144,10 @@ dependencies {
     // Liquibase for database migrations
     implementation("org.liquibase:liquibase-core:4.22.0")
 
+    // Lombok
+    compileOnly("org.projectlombok:lombok:1.18.30")
+    annotationProcessor("org.projectlombok:lombok:1.18.30")
+
     // JUnit 5 (JUnit Jupiter)
     testImplementation("org.junit.jupiter:junit-jupiter:5.10.0")
 

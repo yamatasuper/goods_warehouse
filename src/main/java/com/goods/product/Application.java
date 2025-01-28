@@ -24,13 +24,12 @@ public class Application implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         System.out.println("Arguments passed to the application: " + Arrays.toString(args));
         if (args.length > 0 && args[0].equals("generate-data")) {
             int totalRecords = 10000;
             int batchSize = 100;
 
-            // Используем Spring-managed bean
             batchGenerationService.generateData(totalRecords, batchSize);
         }
     }

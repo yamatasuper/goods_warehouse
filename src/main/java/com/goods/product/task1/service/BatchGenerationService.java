@@ -12,7 +12,6 @@ import java.util.concurrent.TimeUnit;
 
 @Service
 public class BatchGenerationService {
-
     @Autowired
     private DataGeneratorService dataGeneratorService;
 
@@ -33,7 +32,6 @@ public class BatchGenerationService {
         try {
             for (int i = 0; i < batchCount; i++) {
                 int start = i * batchSize;
-
                 executor.submit(() -> {
                     try {
                         dataGeneratorService.generateBatch(start, batchSize);
