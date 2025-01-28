@@ -11,25 +11,25 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Component
 public class TimeMeasurementAspect {
-    private static final Logger LOGGER = LoggerFactory.getLogger(TimeMeasurementAspect.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(TimeMeasurementAspect.class);
 
-    @Autowired
-    private FileLogger fileLogger;
+  @Autowired private FileLogger fileLogger;
 
-    @Around("@annotation(TimeMeasured)")
-    public Object measureTime(ProceedingJoinPoint joinPoint) throws Throwable {
-        long startTime = System.currentTimeMillis();
-        try {
-            return joinPoint.proceed();
-        } finally {
-            long endTime = System.currentTimeMillis();
-            long executionTime = endTime - startTime;
+  @Around("@annotation(TimeMeasured)")
+  public Object measureTime(ProceedingJoinPoint joinPoint) throws Throwable {
+    long startTime = System.currentTimeMillis();
+    try {
+      return joinPoint.proceed();
+    } finally {
+      long endTime = System.currentTimeMillis();
+      long executionTime = endTime - startTime;
 
-            String logMessage = String.format("Execution time of %s: %d ms", joinPoint.getSignature(), executionTime);
+      String logMessage =
+          String.format("Execution time of %s: %d ms", joinPoint.getSignature(), executionTime);
 
-            LOGGER.info(logMessage);
+      LOGGER.info(logMessage);
 
-            fileLogger.logToFile("method_execution_time.log", logMessage);
-        }
+      fileLogger.logToFile("method_execution_time.log", logMessage);
     }
+  }
 }

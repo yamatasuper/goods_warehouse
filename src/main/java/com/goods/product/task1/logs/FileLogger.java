@@ -8,14 +8,12 @@ import java.io.IOException;
 
 @Service
 public class FileLogger {
-    public void logToFile(String fileName, String message) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
-            writer.write(message);
-            writer.newLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+  public void logToFile(String fileName, String message) {
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
+      writer.write(message);
+      writer.newLine();
+    } catch (IOException e) {
+      e.printStackTrace();
     }
+  }
 }
-
-

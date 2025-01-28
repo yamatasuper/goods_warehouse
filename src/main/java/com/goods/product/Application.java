@@ -16,22 +16,20 @@ import java.util.Arrays;
 @EnableScheduling
 public class Application implements CommandLineRunner {
 
-    @Autowired
-    private BatchGenerationService batchGenerationService;
+  @Autowired private BatchGenerationService batchGenerationService;
 
-    public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+  public static void main(String[] args) {
+    SpringApplication.run(Application.class, args);
+  }
+
+  @Override
+  public void run(String... args) {
+    System.out.println("Arguments passed to the application: " + Arrays.toString(args));
+    if (args.length > 0 && args[0].equals("generate-data")) {
+      int totalRecords = 10000;
+      int batchSize = 100;
+
+      batchGenerationService.generateData(totalRecords, batchSize);
     }
-
-    @Override
-    public void run(String... args) {
-        System.out.println("Arguments passed to the application: " + Arrays.toString(args));
-        if (args.length > 0 && args[0].equals("generate-data")) {
-            int totalRecords = 10000;
-            int batchSize = 100;
-
-            batchGenerationService.generateData(totalRecords, batchSize);
-        }
-    }
+  }
 }
-

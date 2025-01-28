@@ -7,5 +7,4 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ExecutionTime {
-}
+public @interface ExecutionTime {}
