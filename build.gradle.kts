@@ -155,6 +155,14 @@ dependencies {
     // Spring Boot Test Starter (includes autoconfigure for testing)
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.boot:spring-boot-test-autoconfigure")
+
+    // Добавляем WebClient и зависимости для WebFlux
+    implementation("org.springframework.boot:spring-boot-starter-webflux") // WebFlux и WebClient
+    implementation("org.springframework:spring-webflux") // Зависимость для работы с Mono и WebClient
+
+    // Зависимости для reactor-netty
+    implementation("io.projectreactor.netty:reactor-netty-http:1.1.4")  // Для работы с WebClient
+    implementation("io.projectreactor:reactor-core:3.5.7") // Для работы с реактивным программированием
 }
 
 tasks.withType<Test> {
@@ -167,3 +175,4 @@ spotless {
         googleJavaFormat() // Использует Google Java Style Guide
     }
 }
+

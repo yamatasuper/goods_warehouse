@@ -1,10 +1,9 @@
 package com.goods.product.task1.logs;
 
-import org.springframework.stereotype.Service;
-
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import org.springframework.stereotype.Service;
 
 @Service
 public class FileLogger {

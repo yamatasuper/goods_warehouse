@@ -17,6 +17,11 @@ spring:
           format_sql: true
           use_sql_comments: true
           order_inserts: true  # Order inserts to optimize batch processing
+currency-service:
+  host: http://localhost:8081
+  methods:
+    get-currency: /api/v1/currencies
+
 
 server:
   port: 8083  # Установите желаемый порт

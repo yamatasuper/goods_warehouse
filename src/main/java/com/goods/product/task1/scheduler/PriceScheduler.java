@@ -2,13 +2,11 @@ package com.goods.product.task1.scheduler;
 
 import com.goods.product.model.Product;
 import com.goods.product.repository.ProductRepository;
-
+import java.math.BigDecimal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-
-import java.math.BigDecimal;
 
 @Component
 public class PriceScheduler {

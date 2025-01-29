@@ -2,13 +2,11 @@ package com.goods.product.task1.service;
 
 import com.goods.product.task1.logs.FileLogger;
 import com.goods.product.task1.logs.TimeMeasured;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class BatchGenerationService {
