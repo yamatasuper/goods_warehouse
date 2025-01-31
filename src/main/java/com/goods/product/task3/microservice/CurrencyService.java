@@ -13,7 +13,7 @@ public class CurrencyService {
   @GetMapping
   public ResponseEntity<Map<String, BigDecimal>> getExchangeRates() {
     if (Math.random() < 0.5) {
-      throw new RuntimeException("Service error"); // генерируем ошибку 50% времени
+      throw new RuntimeException("Service error currencies"); // генерируем ошибку 50% времени
     }
     Map<String, BigDecimal> rates =
         Map.of(

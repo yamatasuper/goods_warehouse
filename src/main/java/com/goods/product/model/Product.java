@@ -49,4 +49,7 @@ public class Product {
 
   @Column(name = "created_at", nullable = false)
   private LocalDateTime createdAt;
+
+  @Column(name = "currency", nullable = false)
+  private String currency;
 }

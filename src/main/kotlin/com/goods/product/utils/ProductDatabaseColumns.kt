@@ -10,4 +10,5 @@ object ProductDatabaseColumns {
     const val QUANTITY = "quantity"
     const val LAST_QUANTITY_UPDATE = "last_quantity_update"
     const val CREATED_AT = "created_at"
+    const val currency = "currency"
 }

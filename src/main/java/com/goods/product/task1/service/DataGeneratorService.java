@@ -25,12 +25,13 @@ public class DataGeneratorService {
             10 + (i % 50),
             "2025-01-14",
             "2025-01-01",
+            "RUB",
             0
           });
     }
 
     String sql =
-        "INSERT INTO product (name, sku, description, category, price, quantity, last_quantity_update, created_at, version) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        "INSERT INTO product (name, sku, description, category, price, quantity, last_quantity_update, created_at, currency, version) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     jdbcTemplate.batchUpdate(sql, batchArgs);
   }
 }

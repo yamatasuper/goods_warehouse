@@ -47,6 +47,9 @@ databaseChangeLog:
                   type: varchar(255)
                   constraints:
                     nullable: false
+              - column:
+                  name: currency
+                  type: varchar(255)
 
   - changeSet:
       id: 2
@@ -79,6 +82,9 @@ databaseChangeLog:
               - column:
                   name: created_at
                   value: "2025-01-01"
+              - column:
+                  name: currency
+                  value: "RUB"
 
   - changeSet:
       id: 3
@@ -111,6 +117,9 @@ databaseChangeLog:
               - column:
                   name: created_at
                   value: "2025-01-01"
+              - column:
+                  name: currency
+                  value: "RUB"
 
   - changeSet:
       id: 4

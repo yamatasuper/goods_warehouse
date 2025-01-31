@@ -28,6 +28,7 @@
             <column name="created_at" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
+            <column name="currency" type="varchar(255)"/>
         </createTable>
     </changeSet>
 
@@ -40,6 +41,7 @@
             <column name="price" value="999.99"/>
             <column name="quantity" value="50"/>
             <column name="last_quantity_update" value="2025-01-14"/>
+            <column name="currency" value="RUB"/>
             <column name="created_at" value="2025-01-01"/>
         </insert>
     </changeSet>
@@ -53,6 +55,7 @@
             <column name="price" value="799.99"/>
             <column name="quantity" value="100"/>
             <column name="last_quantity_update" value="2025-01-14"/>
+            <column name="currency" value="RUB"/>
             <column name="created_at" value="2025-01-01"/>
         </insert>
     </changeSet>
@@ -66,6 +69,7 @@
             <column name="price" value="199.99"/>
             <column name="quantity" value="200"/>
             <column name="last_quantity_update" value="2025-01-14"/>
+            <column name="currency" value="RUB"/>
             <column name="created_at" value="2025-01-01"/>
         </insert>
     </changeSet>

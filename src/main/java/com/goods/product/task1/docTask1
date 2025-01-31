@@ -70,7 +70,7 @@
  *
  * #### Пример SQL-запроса для вставки:
  * ```java
- * String sql = "INSERT INTO product (name, sku, description, category, price, quantity, last_quantity_update, created_at, version) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+ * String sql = "INSERT INTO product (name, sku, description, category, price, currency, quantity, last_quantity_update, created_at, version) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
  * jdbcTemplate.batchUpdate(sql, batchArgs);
  * ```
  *
