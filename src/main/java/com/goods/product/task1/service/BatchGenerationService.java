@@ -2,6 +2,7 @@ package com.goods.product.task1.service;
 
 import com.goods.product.task1.logs.FileLogger;
 import com.goods.product.task1.logs.TimeMeasured;
+import com.goods.product.task3.microservice.CurrencyProvider;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -10,9 +11,20 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class BatchGenerationService {
-  @Autowired private DataGeneratorService dataGeneratorService;
 
-  @Autowired private FileLogger fileLogger;
+  private final DataGeneratorService dataGeneratorService;
+  private final FileLogger fileLogger;
+  private final CurrencyProvider currencyProvider;
+
+  @Autowired
+  public BatchGenerationService(
+      DataGeneratorService dataGeneratorService,
+      FileLogger fileLogger,
+      CurrencyProvider currencyProvider) {
+    this.dataGeneratorService = dataGeneratorService;
+    this.fileLogger = fileLogger;
+    this.currencyProvider = currencyProvider;
+  }
 
   @TimeMeasured
   public void generateData(int totalRecords, int batchSize) {
@@ -28,27 +40,9 @@ public class BatchGenerationService {
     try {
       for (int i = 0; i < batchCount; i++) {
         int start = i * batchSize;
-        executor.submit(
-            () -> {
-              try {
-                dataGeneratorService.generateBatch(start, batchSize);
+        String selectedCurrency = currencyProvider.getCurrency(); // Получаем валюту заранее
 
-                fileLogger.logToFile(
-                    "data_generation.log",
-                    "Batch completed successfully: Start index "
-                        + start
-                        + ", Batch size: "
-                        + batchSize);
-
-              } catch (Exception e) {
-                System.err.println("Error in batch processing: Start index " + start);
-                e.printStackTrace();
-
-                fileLogger.logToFile(
-                    "data_generation.log",
-                    "Batch failed: Start index " + start + ", Error: " + e.getMessage());
-              }
-            });
+        executor.submit(() -> processBatch(start, batchSize, selectedCurrency));
       }
     } finally {
       executor.shutdown();
@@ -62,5 +56,22 @@ public class BatchGenerationService {
       }
     }
     System.out.println("Data generation completed successfully!");
+  }
+
+  private void processBatch(int start, int batchSize, String currency) {
+    try {
+      dataGeneratorService.generateBatch(start, batchSize, currency);
+
+      fileLogger.logToFile(
+          "data_generation.log",
+          "Batch completed successfully: Start index " + start + ", Batch size: " + batchSize);
+    } catch (Exception e) {
+      System.err.println("Error in batch processing: Start index " + start);
+      e.printStackTrace();
+
+      fileLogger.logToFile(
+          "data_generation.log",
+          "Batch failed: Start index " + start + ", Error: " + e.getMessage());
+    }
   }
 }
