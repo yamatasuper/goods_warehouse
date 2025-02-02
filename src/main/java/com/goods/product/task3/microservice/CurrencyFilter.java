@@ -21,7 +21,7 @@ public class CurrencyFilter extends OncePerRequestFilter {
     if (currency != null) {
       currencyProvider.setCurrency(currency);
     } else {
-      currencyProvider.setCurrency("RUB"); // если валюта не передана, используем RUB
+      currencyProvider.setCurrency("RUB");
     }
     filterChain.doFilter(request, response);
   }

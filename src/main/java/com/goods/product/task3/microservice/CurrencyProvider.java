@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class CurrencyProvider {
-  private String currency = "RUB"; // начальная валюта
+  private String currency = "RUB";
 
   public String getCurrency() {
     return currency;

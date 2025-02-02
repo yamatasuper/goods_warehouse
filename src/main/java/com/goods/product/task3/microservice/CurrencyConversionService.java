@@ -11,8 +11,9 @@ public class CurrencyConversionService {
   private static final Map<String, BigDecimal> currencyRates = new HashMap<>();
 
   static {
-    currencyRates.put("CNY", new BigDecimal("0.1286")); // курс для CNY
-    // Здесь можно добавить другие валюты, если нужно
+    currencyRates.put("CNY", new BigDecimal("0.1286"));
+    currencyRates.put("USD", new BigDecimal("0.985"));
+    currencyRates.put("EUR", new BigDecimal("0.1023"));
   }
 
   public BigDecimal convertPrice(BigDecimal price, String currency) {
@@ -20,6 +21,6 @@ public class CurrencyConversionService {
       BigDecimal rate = currencyRates.get(currency);
       return price.multiply(rate);
     }
-    return price; // если валюта не найдена, вернуть оригинальную цену
+    return price;
   }
 }
