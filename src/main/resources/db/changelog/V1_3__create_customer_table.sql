@@ -1,0 +1,8 @@
+CREATE SEQUENCE customer_seq START WITH 1 INCREMENT BY 1;
+
+CREATE TABLE customer (
+    id BIGINT PRIMARY KEY DEFAULT NEXTVAL('customer_seq'),
+    login VARCHAR(100) NOT NULL UNIQUE,
+    email VARCHAR(255) NOT NULL,
+    is_active BOOLEAN NOT NULL
+);
