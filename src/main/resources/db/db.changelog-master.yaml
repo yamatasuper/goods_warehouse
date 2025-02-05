@@ -1,34 +1,11 @@
 databaseChangeLog:
   - changeSet:
-      id: 0
+      id: 14
       author: artemmovchan
       changes:
         - sqlFile:
-            path: db/changelog/initial.sql
+            path: initial.sql
             relativeToChangelogFile: true
-  - changeSet:
-      id: 1
-      author: artemmovchan
-      changes:
-        - sqlFile:
-            path: db/changelog/V1_0__rename_product_table.sql
-            relativeToChangelogFile: true
-        - sqlFile:
-            path: db/changelog/V1_1__add_column_is_available.sql
-            relativeToChangelogFile: true
-        - sqlFile:
-            path: db/changelog/V1_2__create_order_table.sql
-            relativeToChangelogFile: true
-        - sqlFile:
-            path: db/changelog/V1_3__create_customer_table.sql
-            relativeToChangelogFile: true
-        - sqlFile:
-            path: db/changelog/V1_4__create_order_items_table.sql
-            relativeToChangelogFile: true
-        - sqlFile:
-            path: db/changelog/V1_5__create_price_history_table.sql
-            relativeToChangelogFile: true
-
 
 #databaseChangeLog:
 #  - changeSet:

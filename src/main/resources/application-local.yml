@@ -1,15 +1,15 @@
 spring:
-  liquibase:
-    enabled: false
   datasource:
-    # Увеличиваем кеш
-    url: jdbc:h2:mem:goods-warehouse-local;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;TRACE_LEVEL_FILE=0;CACHE_SIZE=8388608;MAX_MEMORY_ROWS=1000000;MAX_MEMORY_UNDO=1000000;INIT=RUNSCRIPT FROM 'classpath:schema.sql'
+    url: jdbc:h2:file:./data/goods-warehouse;DB_CLOSE_DELAY=-1;AUTO_SERVER=TRUE
     username: sa
     password: password
     driver-class-name: org.h2.Driver
+  liquibase:
+    enabled: true  # Включаем Liquibase для миграций
+    change-log: classpath:/db/db.changelog-master.yaml
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
       dialect: org.hibernate.dialect.H2Dialect
       properties:
         hibernate:
@@ -21,10 +21,10 @@ currency-service:
   host: http://localhost:8081
   methods:
     get-currency: /api/v1/currencies
-
-
 server:
   port: 8083  # Установите желаемый порт
+
+
 # Добавляем настройки шедулеров
 #app:
 
