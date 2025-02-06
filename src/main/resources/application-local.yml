@@ -1,22 +1,30 @@
 spring:
-  liquibase:
-    enabled: false
   datasource:
-    # Увеличиваем кеш
-    url: jdbc:h2:mem:goods-warehouse-local;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;TRACE_LEVEL_FILE=0;CACHE_SIZE=8388608;MAX_MEMORY_ROWS=1000000;MAX_MEMORY_UNDO=1000000;INIT=RUNSCRIPT FROM 'classpath:schema.sql'
-    username: sa
-    password: password
+    url: jdbc:h2:file:./movchandb
     driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
   jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
-      ddl-auto: update
-      dialect: org.hibernate.dialect.H2Dialect
-      properties:
-        hibernate:
-          show_sql: true
-          format_sql: true
-          use_sql_comments: true
-          order_inserts: true  # Order inserts to optimize batch processing
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  liquibase:
+    change-log: classpath:/db/changelog/db.changelog-master.yaml
+    drop-first: true
+
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+
 currency-service:
   host: http://localhost:8081
   methods:

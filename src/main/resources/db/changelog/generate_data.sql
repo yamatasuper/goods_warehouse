@@ -1,5 +1,0 @@
--- generate_data.sql
-INSERT INTO product (name, sku, description, category, price, quantity, last_quantity_update, created_at, currency)
-SELECT 'Product ' || x, 'SKU' || x, 'Description for product ' || x,
-       'Category' || (x % 5), 100 + (x % 100), 10 + (x % 50), '2025-01-14', '2025-01-01', 'RUB'
-FROM generate_series(1, 1000000) AS x;

@@ -140,7 +140,7 @@ dependencies {
     implementation("at.favre.lib:bcrypt:0.10.2")
 
     // H2 database (in-memory database for testing or development)
-    runtimeOnly("com.h2database:h2")
+    runtimeOnly("com.h2database:h2:2.3.232")
 
     // Liquibase for database migrations
     implementation("org.liquibase:liquibase-core:4.22.0")
