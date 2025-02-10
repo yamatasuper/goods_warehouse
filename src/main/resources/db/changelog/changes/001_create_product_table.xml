@@ -53,4 +53,13 @@
         <createSequence sequenceName="product_id_seq" startValue="1" incrementBy="1"/>
     </changeSet>
 
+    <changeSet id="004-add-is-available-column" author="your_name">
+        <addColumn tableName="product">
+            <column name="is_available" type="boolean" defaultValueBoolean="true">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+
 </databaseChangeLog>
