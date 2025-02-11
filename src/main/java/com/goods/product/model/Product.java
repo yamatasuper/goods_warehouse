@@ -52,4 +52,7 @@ public class Product {
 
   @Column(name = "currency", nullable = false)
   private String currency;
+
+  @Column(name = "is_available", nullable = false)
+  private Boolean isAvailable;
 }
