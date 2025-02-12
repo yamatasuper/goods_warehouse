@@ -6,7 +6,6 @@ import com.goods.product.task4.dto.response.OrderResponse;
 import com.goods.product.task4.service.OrderService;
 import java.nio.file.AccessDeniedException;
 import java.util.UUID;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,9 +19,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/order")
-@RequiredArgsConstructor
 public class OrderController {
-  private OrderService orderService;
+  private final OrderService orderService;
+
+  public OrderController(OrderService orderService) {
+    this.orderService = orderService;
+  }
 
   @PostMapping
   public ResponseEntity<OrderResponse> createOrder(

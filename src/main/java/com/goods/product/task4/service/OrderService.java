@@ -16,16 +16,23 @@ import java.math.BigDecimal;
 import java.nio.file.AccessDeniedException;
 import java.util.*;
 import java.util.stream.Collectors;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@RequiredArgsConstructor
 public class OrderService {
-  private OrderRepository orderRepository;
-  private ProductRepository productRepository;
-  private OrderItemRepository orderItemRepository;
+  private final OrderRepository orderRepository;
+  private final ProductRepository productRepository;
+  private final OrderItemRepository orderItemRepository;
+
+  public OrderService(
+      OrderRepository orderRepository,
+      ProductRepository productRepository,
+      OrderItemRepository orderItemRepository) {
+    this.orderRepository = orderRepository;
+    this.productRepository = productRepository;
+    this.orderItemRepository = orderItemRepository;
+  }
 
   @Transactional
   public OrderResponse createOrder(Long customerId, CreateOrderRequest request) {
@@ -140,6 +147,22 @@ public class OrderService {
     }
 
     order.setStatus(OrderStatus.DONE);
+    orderRepository.save(order);
+  }
+
+  @Transactional
+  public void rejectOrder(UUID orderId, Long customerId) throws AccessDeniedException {
+    Order order =
+        orderRepository
+            .findByIdAndCustomerId(orderId, customerId)
+            .orElseThrow(() -> new AccessDeniedException("Нет доступа к заказу"));
+
+    // Проверяем, что заказ можно отклонить только из статуса CREATED
+    if (order.getStatus() != OrderStatus.CREATED) {
+      throw new IllegalStateException("Отклонить можно только заказ в статусе CREATED");
+    }
+
+    order.setStatus(OrderStatus.REJECTED);
     orderRepository.save(order);
   }
 
