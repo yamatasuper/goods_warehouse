@@ -12,10 +12,16 @@ import com.goods.product.task4.model.OrderItem;
 import com.goods.product.task4.model.OrderStatus;
 import com.goods.product.task4.repository.OrderItemRepository;
 import com.goods.product.task4.repository.OrderRepository;
+import com.goods.product.task5.customers.Customer;
+import com.goods.product.task5.customers.CustomerRepository;
+import com.goods.product.task5.orders.CustomerInfo;
+import com.goods.product.task5.orders.OrderInfo;
 import java.math.BigDecimal;
 import java.nio.file.AccessDeniedException;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,20 +30,68 @@ public class OrderService {
   private final OrderRepository orderRepository;
   private final ProductRepository productRepository;
   private final OrderItemRepository orderItemRepository;
+  private final CustomerRepository сustomerRepository;
 
   public OrderService(
       OrderRepository orderRepository,
       ProductRepository productRepository,
-      OrderItemRepository orderItemRepository) {
+      OrderItemRepository orderItemRepository,
+      CustomerRepository сustomerRepository) {
     this.orderRepository = orderRepository;
     this.productRepository = productRepository;
     this.orderItemRepository = orderItemRepository;
+    this.сustomerRepository = сustomerRepository;
+  }
+
+  @Async
+  public CompletableFuture<Map<Long, List<OrderInfo>>> getOrdersInfoForProducts(
+      List<Long> productIds) {
+    // 1. Получаем заказы для продуктов
+    List<Order> orders = orderRepository.findOrdersByProductIds(productIds);
+
+    // 2. Группируем заказы по productId
+    Map<Long, List<OrderInfo>> result = new HashMap<>();
+
+    for (Order order : orders) {
+      for (OrderItem item : order.getItems()) {
+        Long productId = item.getProduct().getId();
+
+        // 3. Проверяем статус и добавляем в мапу
+        if (order.getStatus() == OrderStatus.CREATED
+            || order.getStatus() == OrderStatus.CONFIRMED) {
+          OrderInfo orderInfo = new OrderInfo();
+          orderInfo.setId(order.getId());
+          orderInfo.setCustomer(
+              new CustomerInfo(
+                  order.getCustomer().getId(),
+                  order.getCustomer().getAccountNumber(),
+                  order.getCustomer().getEmail(),
+                  order.getCustomer().getInn()));
+          orderInfo.setStatus(order.getStatus());
+          orderInfo.setDeliveryAddress(order.getDeliveryAddress());
+          orderInfo.setQuantity(item.getQuantity());
+
+          result.computeIfAbsent(productId, k -> new ArrayList<>()).add(orderInfo);
+        }
+      }
+    }
+
+    // 4. Возвращаем результат
+    return CompletableFuture.completedFuture(result);
   }
 
   @Transactional
   public OrderResponse createOrder(Long customerId, CreateOrderRequest request) {
     Order order = new Order();
-    order.setCustomerId(customerId);
+
+    // Ищем клиента по ID
+    Customer customer =
+        сustomerRepository
+            .findById(customerId)
+            .orElseThrow(() -> new IllegalArgumentException("Customer not found"));
+
+    // Устанавливаем клиента в заказ
+    order.setCustomer(customer);
     order.setStatus(OrderStatus.CREATED);
     order.setDeliveryAddress(request.getDeliveryAddress());
 

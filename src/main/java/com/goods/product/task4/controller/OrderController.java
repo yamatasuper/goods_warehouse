@@ -4,7 +4,10 @@ import com.goods.product.task4.dto.request.CreateOrderRequest;
 import com.goods.product.task4.dto.request.UpdateOrderRequest;
 import com.goods.product.task4.dto.response.OrderResponse;
 import com.goods.product.task4.service.OrderService;
+import com.goods.product.task5.orders.OrderInfo;
 import java.nio.file.AccessDeniedException;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -71,5 +75,13 @@ public class OrderController {
       throws AccessDeniedException {
     orderService.completeOrder(orderId, customerId);
     return ResponseEntity.noContent().build();
+  }
+
+  @GetMapping("/productOrders")
+  public ResponseEntity<Map<Long, List<OrderInfo>>> getProductOrders(
+      @RequestParam List<Long> productIds) {
+    Map<Long, List<OrderInfo>> ordersInfo =
+        orderService.getOrdersInfoForProducts(productIds).join();
+    return ResponseEntity.ok(ordersInfo);
   }
 }

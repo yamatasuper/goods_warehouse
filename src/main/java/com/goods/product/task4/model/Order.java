@@ -1,5 +1,6 @@
 package com.goods.product.task4.model;
 
+import com.goods.product.task5.customers.Customer;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -8,6 +9,8 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.util.ArrayList;
@@ -17,7 +20,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "orders")
@@ -26,13 +28,15 @@ import org.hibernate.annotations.GenericGenerator;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Order {
+
   @Id
   @GeneratedValue(generator = "UUID")
-  @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
   private UUID id;
 
-  @Column(name = "customer_id", nullable = false)
-  private Long customerId;
+  // Связь с Customer
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "customer_id", nullable = false) // Здесь должно быть customer_id
+  private Customer customer;
 
   @Column(name = "status", nullable = false)
   @Enumerated(EnumType.STRING)
