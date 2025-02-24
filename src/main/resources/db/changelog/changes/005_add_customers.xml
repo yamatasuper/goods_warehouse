@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+<changeSet id="005_add_customers" author="movchan">
+    <insert tableName="customers">
+        <column name="login" value="login1"/>
+        <column name="email" value="login1@example.com"/>
+        <column name="is_active" valueBoolean="true"/>
+        <column name="account_number" value="12345678"/>
+        <column name="inn" value="123456789012"/>
+    </insert>
+    <insert tableName="customers">
+        <column name="login" value="login2"/>
+        <column name="email" value="login2@example.com"/>
+        <column name="is_active" valueBoolean="true"/>
+        <column name="account_number" value="46364362"/>
+        <column name="inn" value="987654321098"/>
+    </insert>
+</changeSet>
+</databaseChangeLog>

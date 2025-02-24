@@ -4,7 +4,7 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
-    <changeSet id="001-create-product-table" author="your_name">
+    <changeSet id="001-create-product-table" author="movchan">
         <createTable tableName="product">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
@@ -32,7 +32,7 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="002-create-remark-table" author="your_name">
+    <changeSet id="002-create-remark-table" author="movchan">
         <createTable tableName="remark">
             <column name="id" type="uuid">
                 <constraints primaryKey="true" nullable="false"/>
@@ -49,11 +49,11 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="003-create-product-sequence" author="your_name">
+    <changeSet id="003-create-product-sequence" author="movchan">
         <createSequence sequenceName="product_id_seq" startValue="1" incrementBy="1"/>
     </changeSet>
 
-    <changeSet id="004-add-is-available-column" author="your_name">
+    <changeSet id="004-add-is-available-column" author="movchan">
         <addColumn tableName="product">
             <column name="is_available" type="boolean" defaultValueBoolean="true">
                 <constraints nullable="false"/>
