@@ -14,6 +14,12 @@ public interface OrderRepository extends JpaRepository<Order, UUID> {
   Optional<Order> findByIdAndCustomerId(UUID orderId, Long customerId);
 
   @Query(
-      "SELECT o FROM Order o JOIN o.items oi JOIN oi.product p WHERE o.status IN ('CREATED', 'CONFIRMED') AND p.id IN :productIds")
+      "SELECT DISTINCT o FROM Order o "
+          + "JOIN FETCH o.items oi "
+          + "JOIN FETCH oi.product p "
+          + "JOIN FETCH o.customer c "
+          + // Подгружаем клиента, чтобы не было LazyInitializationException
+          "WHERE o.status IN ('CREATED', 'CONFIRMED') "
+          + "AND p.id IN :productIds")
   List<Order> findOrdersByProductIds(@Param("productIds") List<Long> productIds);
 }
