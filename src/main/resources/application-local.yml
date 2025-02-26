@@ -20,19 +20,22 @@ spring:
     change-log: classpath:/db/changelog/db.changelog-master.yaml
     drop-first: true
 
+kafka:
+  bootstrap-servers: localhost:9092
+
 logging:
   level:
     org.hibernate.SQL: DEBUG
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
 
 currency-service:
-  host: http://localhost:8081
+  host: http://localhost:8085
   methods:
     get-currency: /api/v1/currencies
 
 
 server:
-  port: 8083  # Установите желаемый порт
+  port: 8086  # Установите желаемый порт
 # Добавляем настройки шедулеров
 #app:
 

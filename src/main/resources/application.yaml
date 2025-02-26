@@ -11,4 +11,6 @@ app:
     enabled: true
 scheduling:
   optimization: false
+kafka:
+  bootstrap-servers: localhost:9092
 
