@@ -163,6 +163,8 @@ dependencies {
     // Зависимости для reactor-netty
     implementation("io.projectreactor.netty:reactor-netty-http:1.1.4")  // Для работы с WebClient
     implementation("io.projectreactor:reactor-core:3.5.7") // Для работы с реактивным программированием
+
+    implementation ("org.springframework.kafka:spring-kafka:3.1.0")
 }
 
 tasks.withType<Test> {
