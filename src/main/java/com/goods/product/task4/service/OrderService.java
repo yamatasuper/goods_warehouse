@@ -124,7 +124,6 @@ public class OrderService {
     order.setItems(orderItems);
     orderRepository.save(order);
     orderItemRepository.saveAll(orderItems);
-
     return mapToOrderResponse(order);
   }
 

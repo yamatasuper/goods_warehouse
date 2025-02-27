@@ -5,6 +5,7 @@ import com.goods.product.task4.dto.request.UpdateOrderRequest;
 import com.goods.product.task4.dto.response.OrderResponse;
 import com.goods.product.task4.service.OrderService;
 import com.goods.product.task5.orders.OrderInfo;
+import com.goods.product.task6.orderEvents.OrderEventService;
 import java.nio.file.AccessDeniedException;
 import java.util.List;
 import java.util.Map;
@@ -25,9 +26,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/order")
 public class OrderController {
   private final OrderService orderService;
+  private final OrderEventService orderEventService;
 
-  public OrderController(OrderService orderService) {
+  public OrderController(OrderService orderService, OrderEventService orderEventService) {
     this.orderService = orderService;
+    this.orderEventService = orderEventService;
   }
 
   @PostMapping
@@ -83,5 +86,15 @@ public class OrderController {
     Map<Long, List<OrderInfo>> ordersInfo =
         orderService.getOrdersInfoForProducts(productIds).join();
     return ResponseEntity.ok(ordersInfo);
+  }
+
+  @PostMapping("/event")
+  public ResponseEntity<Void> handleEvent(@RequestBody String jsonEvent) {
+    try {
+      orderEventService.handleEvent(jsonEvent);
+      return ResponseEntity.ok().build();
+    } catch (Exception e) {
+      return ResponseEntity.badRequest().build();
+    }
   }
 }
