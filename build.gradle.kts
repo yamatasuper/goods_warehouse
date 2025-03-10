@@ -126,6 +126,10 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-json")
     implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
 
+    implementation("org.springframework.boot:spring-boot-autoconfigure")
+    implementation("software.amazon.awssdk:s3:2.20.0")
+    implementation("software.amazon.awssdk:aws-core:2.20.0")
+
     // PostgreSQL driver
     implementation("org.postgresql:postgresql")
 
