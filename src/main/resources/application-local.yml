@@ -33,6 +33,12 @@ currency-service:
   methods:
     get-currency: /api/v1/currencies
 
+aws:
+  s3:
+    endpoint: https://your-s3-endpoint
+    access-key: your-access-key
+    secret-key: your-secret-key
+
 
 server:
   port: 8086  # Установите желаемый порт

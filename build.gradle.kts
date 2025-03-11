@@ -125,60 +125,46 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.boot:spring-boot-starter-json")
     implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
-
     implementation("org.springframework.boot:spring-boot-autoconfigure")
     implementation("software.amazon.awssdk:s3:2.20.0")
     implementation("software.amazon.awssdk:aws-core:2.20.0")
-
-    // PostgreSQL driver
     implementation("org.postgresql:postgresql")
-
-    // Swagger/OpenAPI support
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0")
-
-    // Exposed ORM
     implementation("org.jetbrains.exposed:exposed-core:0.37.3")
     implementation("org.jetbrains.exposed:exposed-jdbc:0.37.3")
-
-    // BCrypt for password hashing
     implementation("at.favre.lib:bcrypt:0.10.2")
-
-    // H2 database (in-memory database for testing or development)
     runtimeOnly("com.h2database:h2:2.3.232")
-
-    // Liquibase for database migrations
     implementation("org.liquibase:liquibase-core:4.22.0")
-
-    // Lombok
     compileOnly("org.projectlombok:lombok:1.18.30")
     annotationProcessor("org.projectlombok:lombok:1.18.30")
-
-    // JUnit 5 (JUnit Jupiter)
     testImplementation("org.junit.jupiter:junit-jupiter:5.10.0")
-
-    // Spring Boot Test Starter (includes autoconfigure for testing)
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.boot:spring-boot-test-autoconfigure")
-
-    // Добавляем WebClient и зависимости для WebFlux
-    implementation("org.springframework.boot:spring-boot-starter-webflux") // WebFlux и WebClient
-    implementation("org.springframework:spring-webflux") // Зависимость для работы с Mono и WebClient
-
-    // Зависимости для reactor-netty
-    implementation("io.projectreactor.netty:reactor-netty-http:1.1.4")  // Для работы с WebClient
-    implementation("io.projectreactor:reactor-core:3.5.7") // Для работы с реактивным программированием
-
-    implementation ("org.springframework.kafka:spring-kafka:3.1.0")
+    implementation("org.springframework.boot:spring-boot-starter-webflux")
+    implementation("org.springframework:spring-webflux")
+    implementation("io.projectreactor.netty:reactor-netty-http:1.1.4")
+    implementation("io.projectreactor:reactor-core:3.5.7")
+    implementation("org.springframework.kafka:spring-kafka:3.1.0")
+    implementation("org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter:7.20.0")
+    implementation("org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-rest:7.20.0")
+    implementation("org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-webapp:7.20.0")
+    implementation("org.camunda.bpm:camunda-engine:7.20.0")
+    testImplementation("org.camunda.bpm.assert:camunda-bpm-assert:12.0.0")
 }
 
 tasks.withType<Test> {
     useJUnitPlatform()
 }
 
-spotless {
-    java {
-        target("src/**/*.java")
-        googleJavaFormat() // Использует Google Java Style Guide
+tasks {
+    bootJar {
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     }
 }
 
+spotless {
+    java {
+        target("src/**/*.java")
+        googleJavaFormat()
+    }
+}

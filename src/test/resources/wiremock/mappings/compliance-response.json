@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/api/compliance/check"
+  },
+  "response": {
+    "status": 200,
+    "body": "{\"businessKey\": \"12345\", \"result\": \"APPROVED\"}",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

@@ -19,4 +19,14 @@
         <column name="inn" value="987654321098"/>
     </insert>
 </changeSet>
+    <changeSet id="006_create_product_image" author="movchan">
+        <createTable tableName="product_image">
+            <column name="product_id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="s3_key" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
 </databaseChangeLog>
