@@ -4,14 +4,14 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 <changeSet id="005_add_customers" author="movchan">
-    <insert tableName="customers">
+    <insert tableName="customer">
         <column name="login" value="login1"/>
         <column name="email" value="login1@example.com"/>
         <column name="is_active" valueBoolean="true"/>
         <column name="account_number" value="12345678"/>
         <column name="inn" value="123456789012"/>
     </insert>
-    <insert tableName="customers">
+    <insert tableName="customer">
         <column name="login" value="login2"/>
         <column name="email" value="login2@example.com"/>
         <column name="is_active" valueBoolean="true"/>
