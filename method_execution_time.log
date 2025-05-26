@@ -60,3 +60,11 @@ Execution time of void com.goods.product.task1.service.BatchGenerationService.ge
 Execution time of void com.goods.product.task1.service.BatchGenerationService.generateData(int,int): 2655 ms
 Execution time of void com.goods.product.task1.service.BatchGenerationService.generateData(int,int): 2592 ms
 Execution time of void com.goods.product.task1.service.BatchGenerationService.generateData(int,int): 2907 ms
+Execution time of void com.goods.product.task1.service.BatchGenerationService.generateData(int,int): 2319 ms
+Execution time of void com.goods.product.task1.service.BatchGenerationService.generateData(int,int): 2141 ms
+Execution time of void com.goods.product.task1.service.BatchGenerationService.generateData(int,int): 3004 ms
+Execution time of void com.goods.product.task1.service.BatchGenerationService.generateData(int,int): 2075 ms
+Execution time of void com.goods.product.task1.service.BatchGenerationService.generateData(int,int): 2713 ms
+Execution time of void com.goods.product.task1.service.BatchGenerationService.generateData(int,int): 2520 ms
+Execution time of void com.goods.product.task1.service.BatchGenerationService.generateData(int,int): 2379 ms
+Execution time of void com.goods.product.task1.service.BatchGenerationService.generateData(int,int): 2485 ms

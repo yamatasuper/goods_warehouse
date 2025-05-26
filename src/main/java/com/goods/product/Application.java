@@ -1,7 +1,9 @@
 package com.goods.product;
 
 import com.goods.product.task1.service.BatchGenerationService;
-
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.info.Info;
+import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -11,8 +13,8 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Arrays;
-
+@OpenAPIDefinition(
+    info = @Info(title = "Your API Title", version = "1.0", description = "Your API Description"))
 @SpringBootApplication
 @EnableAsync
 @EnableScheduling
