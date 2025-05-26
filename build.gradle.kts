@@ -129,7 +129,7 @@ dependencies {
     implementation("software.amazon.awssdk:s3:2.20.0")
     implementation("software.amazon.awssdk:aws-core:2.20.0")
     implementation("org.postgresql:postgresql")
-    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0")
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.7.0")
     implementation("org.jetbrains.exposed:exposed-core:0.37.3")
     implementation("org.jetbrains.exposed:exposed-jdbc:0.37.3")
     implementation("at.favre.lib:bcrypt:0.10.2")
