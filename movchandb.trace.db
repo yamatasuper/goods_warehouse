@@ -1,0 +1,24 @@
+2025-05-12 19:31:15.095309+04:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DATABASECHANGELOGLOCK" not found (this database is empty); SQL statement:
+SELECT COUNT(*) FROM PUBLIC.DATABASECHANGELOGLOCK [42104-232]
+2025-05-12 19:31:15.199246+04:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DATABASECHANGELOGLOCK" not found (this database is empty); SQL statement:
+SELECT COUNT(*) FROM PUBLIC.DATABASECHANGELOGLOCK [42104-232]
+2025-05-12 19:31:15.199594+04:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DATABASECHANGELOGLOCK" not found (this database is empty); SQL statement:
+SELECT COUNT(*) FROM PUBLIC.DATABASECHANGELOGLOCK [42104-232]
+2025-05-12 19:31:15.206458+04:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DATABASECHANGELOGLOCK" not found (this database is empty); SQL statement:
+SELECT COUNT(*) FROM PUBLIC.DATABASECHANGELOGLOCK [42104-232]
+2025-05-12 19:41:14.403156+04:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DATABASECHANGELOGLOCK" not found (this database is empty); SQL statement:
+SELECT COUNT(*) FROM PUBLIC.DATABASECHANGELOGLOCK [42104-232]
+2025-05-12 19:41:14.510330+04:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DATABASECHANGELOGLOCK" not found (this database is empty); SQL statement:
+SELECT COUNT(*) FROM PUBLIC.DATABASECHANGELOGLOCK [42104-232]
+2025-05-12 19:41:14.513826+04:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DATABASECHANGELOGLOCK" not found (this database is empty); SQL statement:
+SELECT COUNT(*) FROM PUBLIC.DATABASECHANGELOGLOCK [42104-232]
+2025-05-12 19:41:14.532475+04:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DATABASECHANGELOGLOCK" not found (this database is empty); SQL statement:
+SELECT COUNT(*) FROM PUBLIC.DATABASECHANGELOGLOCK [42104-232]

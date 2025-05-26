@@ -13,6 +13,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.client.RestTemplate;
 
+
 @OpenAPIDefinition(
     info = @Info(title = "Your API Title", version = "1.0", description = "Your API Description"))
 @SpringBootApplication
