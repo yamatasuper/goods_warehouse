@@ -118,3 +118,23 @@ SELECT COUNT(*) FROM PUBLIC.DATABASECHANGELOGLOCK [42104-232]
 2025-05-27 14:38:07.767506+04:00 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DATABASECHANGELOGLOCK" not found (this database is empty); SQL statement:
 SELECT COUNT(*) FROM PUBLIC.DATABASECHANGELOGLOCK [42104-232]
+2025-05-27 22:23:27.035475+04:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DATABASECHANGELOGLOCK" not found (this database is empty); SQL statement:
+SELECT COUNT(*) FROM PUBLIC.DATABASECHANGELOGLOCK [42104-232]
+2025-05-27 22:23:27.319918+04:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DATABASECHANGELOGLOCK" not found (this database is empty); SQL statement:
+SELECT COUNT(*) FROM PUBLIC.DATABASECHANGELOGLOCK [42104-232]
+2025-05-27 22:23:27.321410+04:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DATABASECHANGELOGLOCK" not found (this database is empty); SQL statement:
+SELECT COUNT(*) FROM PUBLIC.DATABASECHANGELOGLOCK [42104-232]
+2025-05-27 22:23:27.341134+04:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DATABASECHANGELOGLOCK" not found (this database is empty); SQL statement:
+SELECT COUNT(*) FROM PUBLIC.DATABASECHANGELOGLOCK [42104-232]
+2025-05-27 22:33:30.652270+04:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Синтаксическая ошибка в выражении SQL "SELECT * FROM CART CART_ITEM [*]CART"
+Syntax error in SQL statement "SELECT * FROM CART CART_ITEM [*]CART"; SQL statement:
+SELECT * FROM CART CART_ITEM CART [42000-232]
+2025-05-27 22:33:31.475935+04:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Синтаксическая ошибка в выражении SQL "SELECT * FROM CART CART_ITEM [*]CART"
+Syntax error in SQL statement "SELECT * FROM CART CART_ITEM [*]CART"; SQL statement:
+SELECT * FROM CART CART_ITEM CART [42000-232]

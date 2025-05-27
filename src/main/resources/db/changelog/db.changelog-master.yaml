@@ -9,3 +9,5 @@ databaseChangeLog:
       file: db/changelog/changes/004_create_price_and_order_item.xml
   - include:
       file: db/changelog/changes/005_add_customers.xml
+  - include:
+      file: db/changelog/changes/006_cart.xml
