@@ -1,4 +1,4 @@
-package com.goods.product.S3Images;
+package com.goods.product.task7.S3Images;
 
 import com.goods.product.model.Product;
 import com.goods.product.repository.ProductRepository;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartFile;Пере
 
 @RestController
 @RequestMapping("/api/products/{productId}/images")

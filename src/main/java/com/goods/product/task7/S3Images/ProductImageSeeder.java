@@ -1,4 +1,4 @@
-package com.goods.product.S3Images;
+package com.goods.product.task7.S3Images;
 
 import com.goods.product.model.Product;
 import com.goods.product.service.ProductService;

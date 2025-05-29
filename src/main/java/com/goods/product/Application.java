@@ -1,6 +1,6 @@
 package com.goods.product;
 
-import com.goods.product.S3Images.S3Properties;
+import com.goods.product.task7.S3Images.S3Properties;
 import com.goods.product.task1.service.BatchGenerationService;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Info;
@@ -33,8 +33,8 @@ public class Application implements CommandLineRunner {
   public void run(String... args) {
     System.out.println("Arguments passed to the application: " + Arrays.toString(args));
     if (args.length > 0 && args[0].equals("generate-data")) {
-      int totalRecords = 10000;
-      int batchSize = 100;
+      int totalRecords = 10;
+      int batchSize = 1;
 
       batchGenerationService.generateData(totalRecords, batchSize);
     }

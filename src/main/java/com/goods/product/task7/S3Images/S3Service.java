@@ -1,4 +1,4 @@
-package com.goods.product.S3Images;
+package com.goods.product.task7.S3Images;
 
 import java.io.IOException;
 import org.springframework.stereotype.Service; // вместо org.jvnet.hk2.annotations.Service

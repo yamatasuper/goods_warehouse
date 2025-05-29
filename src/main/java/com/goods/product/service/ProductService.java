@@ -1,6 +1,6 @@
 package com.goods.product.service;
 
-import com.goods.product.S3Images.ProductDto;
+import com.goods.product.task7.S3Images.ProductDto;
 import com.goods.product.model.Product;
 import com.goods.product.repository.ProductRepository;
 import java.util.List;

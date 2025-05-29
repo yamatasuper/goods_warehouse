@@ -1,4 +1,4 @@
-package com.goods.product.S3Images;
+package com.goods.product.task7.S3Images;
 
 import lombok.Getter;
 import lombok.Setter;

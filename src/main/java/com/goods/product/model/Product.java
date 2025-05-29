@@ -1,6 +1,6 @@
 package com.goods.product.model;
 
-import com.goods.product.S3Images.ProductImage;
+import com.goods.product.task7.S3Images.ProductImage;
 import jakarta.persistence.*;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

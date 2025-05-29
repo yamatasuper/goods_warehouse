@@ -1,4 +1,4 @@
-package com.goods.product.S3Images;
+package com.goods.product.task7.S3Images;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

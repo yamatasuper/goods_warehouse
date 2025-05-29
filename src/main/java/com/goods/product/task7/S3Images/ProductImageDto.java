@@ -1,4 +1,4 @@
-package com.goods.product.S3Images;
+package com.goods.product.task7.S3Images;
 
 import java.time.LocalDateTime;
 import java.util.UUID;

@@ -1,6 +1,6 @@
 package com.goods.product.controller;
 
-import com.goods.product.S3Images.ProductDto;
+import com.goods.product.task7.S3Images.ProductDto;
 import com.goods.product.model.Product;
 import com.goods.product.service.ProductMapper;
 import com.goods.product.service.ProductService;
@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -34,13 +35,11 @@ public class ProductController {
   }
 
   @GetMapping("/")
-  public List<ProductDto> getAllProducts() {
-    String targetCurrency = currencyProvider.getCurrency();
+  public ResponseEntity<List<ProductDto>> getAllProducts() {
     List<Product> products = productService.getAllProductEntities();
-
-    return products.stream()
-        .map(product -> convertProductToDto(product, targetCurrency))
-        .collect(Collectors.toList());
+    List<ProductDto> dtos =
+        products.stream().map(productMapper::toDto).collect(Collectors.toList());
+    return ResponseEntity.ok(dtos);
   }
 
   @GetMapping("/{id}")
