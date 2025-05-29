@@ -1,36 +1,35 @@
 package com.goods.product.service;
 
+import com.goods.product.S3Images.ProductDto;
 import com.goods.product.model.Product;
 import com.goods.product.repository.ProductRepository;
-import jakarta.transaction.Transactional;
-import java.math.BigDecimal;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ProductService {
-  @Autowired private ProductRepository productRepository;
+  private final ProductRepository productRepository;
+  private final ProductMapper productMapper;
 
-  public List<Product> getAllProducts() {
+  public ProductService(ProductRepository productRepository, ProductMapper productMapper) {
+    this.productRepository = productRepository;
+    this.productMapper = productMapper;
+  }
+
+  // Возвращает сущность Product (для внутреннего использования)
+  public Product getProductEntityById(Long id) {
+    return productRepository
+        .findById(id)
+        .orElseThrow(() -> new RuntimeException("Product not found"));
+  }
+
+  // Возвращает DTO (для контроллера)
+  public ProductDto getProductById(Long id) {
+    Product product = getProductEntityById(id);
+    return productMapper.toDto(product);
+  }
+
+  public List<Product> getAllProductEntities() {
     return productRepository.findAll();
-  }
-
-  public Product saveProduct(Product product) {
-    return productRepository.save(product);
-  }
-
-  public Product getProductById(Long id) {
-    return productRepository.findById(id).orElse(null);
-  }
-
-  @Transactional
-  public void updateProductPrices() {
-    List<Product> products = productRepository.findAll();
-    products.forEach(
-        product -> {
-          product.setPrice(product.getPrice().multiply(BigDecimal.valueOf(1.1)));
-          productRepository.save(product);
-        });
   }
 }

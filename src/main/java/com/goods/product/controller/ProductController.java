@@ -1,10 +1,11 @@
 package com.goods.product.controller;
 
+import com.goods.product.S3Images.ProductDto;
 import com.goods.product.model.Product;
+import com.goods.product.service.ProductMapper;
 import com.goods.product.service.ProductService;
 import com.goods.product.task3.microservice.CurrencyConversionService;
 import com.goods.product.task3.microservice.CurrencyProvider;
-import com.goods.product.task3.model.ProductResponse;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,40 +16,57 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/products")
 public class ProductController {
 
-  @Autowired private ProductService productService;
-
-  @Autowired private CurrencyProvider currencyProvider; // для получения валюты из сессии
+  private final ProductService productService;
+  private final CurrencyProvider currencyProvider;
+  private final CurrencyConversionService currencyConversionService;
+  private final ProductMapper productMapper;
 
   @Autowired
-  private CurrencyConversionService currencyConversionService; // сервис для конвертации цены
+  public ProductController(
+      ProductService productService,
+      CurrencyProvider currencyProvider,
+      CurrencyConversionService currencyConversionService,
+      ProductMapper productMapper) {
+    this.productService = productService;
+    this.currencyProvider = currencyProvider;
+    this.currencyConversionService = currencyConversionService;
+    this.productMapper = productMapper;
+  }
 
   @GetMapping("/")
-  public List<ProductResponse> getAllProducts() {
-    String currency = currencyProvider.getCurrency();
-    List<Product> products = productService.getAllProducts();
+  public List<ProductDto> getAllProducts() {
+    String targetCurrency = currencyProvider.getCurrency();
+    List<Product> products = productService.getAllProductEntities();
 
-    // Преобразуем каждый продукт и пересчитываем цену в зависимости от валюты
     return products.stream()
-        .map(
-            product -> {
-              BigDecimal convertedPrice =
-                  currencyConversionService.convertPrice(product.getPrice(), currency);
-              product.setPrice(convertedPrice); // изменяем цену на пересчитанную
-              return new ProductResponse(product, currency); // возвращаем ответ с новой ценой
-            })
+        .map(product -> convertProductToDto(product, targetCurrency))
         .collect(Collectors.toList());
   }
 
   @GetMapping("/{id}")
-  public ProductResponse getProductById(@PathVariable Long id) {
-    String currency = currencyProvider.getCurrency();
-    Product product = productService.getProductById(id);
+  public ProductDto getProductById(@PathVariable Long id) {
+    String targetCurrency = currencyProvider.getCurrency();
+    Product product = productService.getProductEntityById(id);
+    return convertProductToDto(product, targetCurrency);
+  }
 
-    // Пересчитываем цену в зависимости от валюты
+  private ProductDto convertProductToDto(Product product, String targetCurrency) {
+    // Конвертируем цену
     BigDecimal convertedPrice =
-        currencyConversionService.convertPrice(product.getPrice(), currency);
-    product.setPrice(convertedPrice); // изменяем цену на пересчитанную
+        currencyConversionService.convertPrice(product.getPrice(), targetCurrency);
 
-    return new ProductResponse(product, currency); // возвращаем ответ с новой ценой
+    ProductDto dto = new ProductDto();
+
+    dto.setId(product.getId());
+    dto.setName(product.getName());
+    dto.setSku(product.getSku());
+    dto.setDescription(product.getDescription());
+    dto.setCategory(product.getCategory());
+    dto.setPrice(convertedPrice);
+    dto.setQuantity(product.getQuantity());
+    dto.setCurrency(targetCurrency);
+    dto.setIsAvailable(product.getIsAvailable());
+    dto.setCreatedAt(product.getCreatedAt());
+    return dto;
   }
 }

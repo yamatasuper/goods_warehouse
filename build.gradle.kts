@@ -150,6 +150,13 @@ dependencies {
     implementation("org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-webapp:7.20.0")
     implementation("org.camunda.bpm:camunda-engine:7.20.0")
     testImplementation("org.camunda.bpm.assert:camunda-bpm-assert:12.0.0")
+    implementation("org.springframework:spring-test")
+
+    // AWS SDK для S3
+    implementation("software.amazon.awssdk:s3:2.20.0")
+
+    // Для работы с Multipart файлами
+    implementation("commons-io:commons-io:2.11.0")
 }
 
 tasks.withType<Test> {

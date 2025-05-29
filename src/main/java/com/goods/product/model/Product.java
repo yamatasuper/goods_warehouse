@@ -1,5 +1,7 @@
 package com.goods.product.model;
 
+import com.goods.product.S3Images.ProductImage;
+import jakarta.persistence.*;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,6 +12,7 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Version;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -55,4 +58,7 @@ public class Product {
 
   @Column(name = "is_available", nullable = false)
   private Boolean isAvailable;
+
+  @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<ProductImage> images;
 }
