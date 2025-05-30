@@ -1,7 +1,7 @@
 package com.goods.product;
 
-import com.goods.product.task7.S3Images.S3Properties;
 import com.goods.product.task1.service.BatchGenerationService;
+import com.goods.product.task7.S3Images.S3Properties;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Info;
 import java.util.Arrays;
