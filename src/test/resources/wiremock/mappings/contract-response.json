@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/api/contract/register"
+  },
+  "response": {
+    "status": 200,
+    "body": "{\"contractId\": \"12345\"}",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

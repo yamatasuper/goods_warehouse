@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+    xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+    xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+    xmlns:modeler="http://camunda.org/schema/modeler/1.0"
+    xmlns:camunda="http://camunda.org/schema/bpmn"
+    id="Definitions_1"
+    targetNamespace="http://bpmn.io/schema/bpmn"
+    exporter="Camunda Modeler"
+    exporterVersion="5.0.0">
+
+  <bpmn:process id="orderProcess" isExecutable="true">
+    <!-- Start Event -->
+    <bpmn:startEvent id="StartEvent_1" name="Start Order Process">
+      <bpmn:outgoing>Flow_1</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <!-- Compliance Check -->
+    <bpmn:serviceTask id="ServiceTask_Compliance" name="Compliance Check" camunda:delegateExpression="${complianceService}">
+      <bpmn:incoming>Flow_1</bpmn:incoming>
+      <bpmn:outgoing>Flow_2</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <!-- Exclusive Gateway: Check Compliance Result -->
+    <bpmn:exclusiveGateway id="ExclusiveGateway_ComplianceCheck" name="Check Compliance Result">
+      <bpmn:incoming>Flow_2</bpmn:incoming>
+      <bpmn:outgoing>Flow_3</bpmn:outgoing>
+      <bpmn:outgoing>Flow_4</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <!-- Flow: Compliance Approved -->
+    <bpmn:sequenceFlow id="Flow_3" sourceRef="ExclusiveGateway_ComplianceCheck" targetRef="ServiceTask_RegisterContract">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${complianceResult == 'APPROVED'}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+
+    <!-- Flow: Compliance Rejected -->
+    <bpmn:sequenceFlow id="Flow_4" sourceRef="ExclusiveGateway_ComplianceCheck" targetRef="ServiceTask_RejectOrder">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${complianceResult == 'REJECTED'}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+
+    <!-- Register Contract -->
+    <bpmn:serviceTask id="ServiceTask_RegisterContract" name="Register Contract" camunda:delegateExpression="${contractService}">
+      <bpmn:incoming>Flow_3</bpmn:incoming>
+      <bpmn:outgoing>Flow_5</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <!-- Register Delivery -->
+    <bpmn:serviceTask id="ServiceTask_RegisterDelivery" name="Register Delivery" camunda:delegateExpression="${deliveryService}">
+      <bpmn:incoming>Flow_5</bpmn:incoming>
+      <bpmn:outgoing>Flow_6</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <!-- Process Payment -->
+    <bpmn:serviceTask id="ServiceTask_ProcessPayment" name="Process Payment" camunda:delegateExpression="${paymentService}">
+      <bpmn:incoming>Flow_6</bpmn:incoming>
+      <bpmn:outgoing>Flow_7</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <!-- Exclusive Gateway: Check Payment Result -->
+    <bpmn:exclusiveGateway id="ExclusiveGateway_PaymentCheck" name="Check Payment Result">
+      <bpmn:incoming>Flow_7</bpmn:incoming>
+      <bpmn:outgoing>Flow_8</bpmn:outgoing>
+      <bpmn:outgoing>Flow_9</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <!-- Flow: Payment Success -->
+    <bpmn:sequenceFlow id="Flow_8" sourceRef="ExclusiveGateway_PaymentCheck" targetRef="ServiceTask_ConfirmOrder">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${paymentResult == true}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+
+    <!-- Flow: Payment Failed -->
+    <bpmn:sequenceFlow id="Flow_9" sourceRef="ExclusiveGateway_PaymentCheck" targetRef="ServiceTask_RejectOrder">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${paymentResult == false}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+
+    <!-- Confirm Order -->
+    <bpmn:serviceTask id="ServiceTask_ConfirmOrder" name="Confirm Order" camunda:delegateExpression="${orderServiceOrchestrator}">
+      <bpmn:incoming>Flow_8</bpmn:incoming>
+      <bpmn:outgoing>Flow_10</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <!-- Reject Order -->
+    <bpmn:serviceTask id="ServiceTask_RejectOrder" name="Reject Order" camunda:delegateExpression="${orderServiceOrchestrator}">
+      <bpmn:incoming>Flow_4</bpmn:incoming>
+      <bpmn:incoming>Flow_9</bpmn:incoming>
+      <bpmn:outgoing>Flow_11</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <!-- End Event: Order Confirmed -->
+    <bpmn:endEvent id="EndEvent_OrderConfirmed" name="Order Confirmed">
+      <bpmn:incoming>Flow_10</bpmn:incoming>
+    </bpmn:endEvent>
+
+    <!-- End Event: Order Rejected -->
+    <bpmn:endEvent id="EndEvent_OrderRejected" name="Order Rejected">
+      <bpmn:incoming>Flow_11</bpmn:incoming>
+    </bpmn:endEvent>
+
+    <!-- Sequence Flows -->
+    <bpmn:sequenceFlow id="Flow_1" sourceRef="StartEvent_1" targetRef="ServiceTask_Compliance" />
+    <bpmn:sequenceFlow id="Flow_2" sourceRef="ServiceTask_Compliance" targetRef="ExclusiveGateway_ComplianceCheck" />
+    <bpmn:sequenceFlow id="Flow_5" sourceRef="ServiceTask_RegisterContract" targetRef="ServiceTask_RegisterDelivery" />
+    <bpmn:sequenceFlow id="Flow_6" sourceRef="ServiceTask_RegisterDelivery" targetRef="ServiceTask_ProcessPayment" />
+    <bpmn:sequenceFlow id="Flow_7" sourceRef="ServiceTask_ProcessPayment" targetRef="ExclusiveGateway_PaymentCheck" />
+    <bpmn:sequenceFlow id="Flow_10" sourceRef="ServiceTask_ConfirmOrder" targetRef="EndEvent_OrderConfirmed" />
+    <bpmn:sequenceFlow id="Flow_11" sourceRef="ServiceTask_RejectOrder" targetRef="EndEvent_OrderRejected" />
+  </bpmn:process>
+
+  <!-- BPMN Diagram -->
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="orderProcess">
+      <!-- Shapes and Edges -->
+      <bpmndi:BPMNShape id="StartEvent_1_di" bpmnElement="StartEvent_1">
+        <dc:Bounds x="152" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_Compliance_di" bpmnElement="ServiceTask_Compliance">
+        <dc:Bounds x="240" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ExclusiveGateway_ComplianceCheck_di" bpmnElement="ExclusiveGateway_ComplianceCheck">
+        <dc:Bounds x="400" y="95" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_RegisterContract_di" bpmnElement="ServiceTask_RegisterContract">
+        <dc:Bounds x="520" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_RegisterDelivery_di" bpmnElement="ServiceTask_RegisterDelivery">
+        <dc:Bounds x="680" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_ProcessPayment_di" bpmnElement="ServiceTask_ProcessPayment">
+        <dc:Bounds x="840" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ExclusiveGateway_PaymentCheck_di" bpmnElement="ExclusiveGateway_PaymentCheck">
+        <dc:Bounds x="1000" y="95" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_ConfirmOrder_di" bpmnElement="ServiceTask_ConfirmOrder">
+        <dc:Bounds x="1120" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_RejectOrder_di" bpmnElement="ServiceTask_RejectOrder">
+        <dc:Bounds x="1120" y="220" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_OrderConfirmed_di" bpmnElement="EndEvent_OrderConfirmed">
+        <dc:Bounds x="1280" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_OrderRejected_di" bpmnElement="EndEvent_OrderRejected">
+        <dc:Bounds x="1280" y="242" width="36" height="36" />
+      </bpmndi:BPMNShape>
+
+      <!-- Sequence Flows -->
+      <bpmndi:BPMNEdge id="Flow_1_di" bpmnElement="Flow_1">
+        <di:waypoint x="188" y="120" />
+        <di:waypoint x="240" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_2_di" bpmnElement="Flow_2">
+        <di:waypoint x="340" y="120" />
+        <di:waypoint x="400" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_3_di" bpmnElement="Flow_3">
+        <di:waypoint x="425" y="120" />
+        <di:waypoint x="520" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_4_di" bpmnElement="Flow_4">
+        <di:waypoint x="425" y="145" />
+        <di:waypoint x="425" y="260" />
+        <di:waypoint x="1120" y="260" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_5_di" bpmnElement="Flow_5">
+        <di:waypoint x="620" y="120" />
+        <di:waypoint x="680" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_6_di" bpmnElement="Flow_6">
+        <di:waypoint x="780" y="120" />
+        <di:waypoint x="840" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_7_di" bpmnElement="Flow_7">
+        <di:waypoint x="940" y="120" />
+        <di:waypoint x="1000" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_8_di" bpmnElement="Flow_8">
+        <di:waypoint x="1025" y="120" />
+        <di:waypoint x="1120" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_9_di" bpmnElement="Flow_9">
+        <di:waypoint x="1025" y="145" />
+        <di:waypoint x="1025" y="260" />
+        <di:waypoint x="1120" y="260" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_10_di" bpmnElement="Flow_10">
+        <di:waypoint x="1220" y="120" />
+        <di:waypoint x="1280" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_11_di" bpmnElement="Flow_11">
+        <di:waypoint x="1220" y="260" />
+        <di:waypoint x="1280" y="260" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

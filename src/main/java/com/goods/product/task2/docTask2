@@ -1,0 +1,209 @@
+# Документация: Многокритериальный поиск с использованием Spring Data и Criteria API
+
+## Описание задачи
+Микросервис должен предоставлять функциональность многокритериального поиска продуктов с использованием Criteria API. Входные данные (JSON) содержат список критериев для фильтрации, при этом:
+
+- Каждое условие фильтрации включает поле (`field`), значение (`value`) и операцию (`operation`).
+- Операции могут быть следующими: `=` (EQUAL), `>=` (GREATER_THAN_OR_EQ), `<=` (LESS_THAN_OR_EQ), `~` (LIKE).
+- Все критерии соединяются с помощью логического оператора "И" (AND).
+- Поддерживаются запросы с пагинацией через query параметры `page` и `size`.
+
+Пример запроса:
+```json
+[
+    {
+        "field": "price",
+        "value": 110.0,
+        "operation": ">="
+    },
+    {
+        "field": "price",
+        "value": 240.1,
+        "operation": "<="
+    },
+    {
+        "field": "createdAt",
+        "value": "2024-03-12T19:25:22",
+        "operation": ">="
+    },
+    {
+        "field": "name",
+        "value": "1",
+        "operation": "~"
+    }
+]
+```
+
+## Реализация
+
+### 1. Структура запроса: DTO SearchCriteriaDTO
+
+Класс `SearchCriteriaDTO` описывает один критерий фильтрации.
+```java
+@Getter
+@Setter
+public class SearchCriteriaDTO {
+
+  @NotBlank(message = "Field name cannot be blank")
+  private String field;
+
+  @JsonSerialize(using = CustomValueSerializer.class)
+  @JsonDeserialize(using = CustomValueDeserializer.class)
+  private Object value;
+
+  @NotBlank(message = "Operation must be provided")
+  private String operation;
+}
+```
+
+### 2. Кастомные сериализаторы и десериализаторы
+Для сериализации/десериализации значений в `value` (которые могут быть строками, числами и т.д.) используются следующие классы:
+
+- **CustomValueDeserializer**: Обрабатывает различные типы значений при десериализации.
+- **CustomValueSerializer**: Конвертирует значения обратно при сериализации.
+
+### 3. DynamicSpecification
+Класс `DynamicSpecification` реализует интерфейс `Specification` для работы с Criteria API.
+
+#### Основные моменты:
+- Критерии преобразуются в `Predicate` в методе `toPredicate`.
+- Операции поддерживают сравнения (`=`, `>=`, `<=`, `~`).
+
+Пример кода:
+```java
+public class DynamicSpecification<T> implements Specification<T> {
+  private final List<SearchCriteriaDTO> criteriaList;
+
+  public DynamicSpecification(List<SearchCriteriaDTO> criteriaList) {
+    this.criteriaList = criteriaList;
+  }
+
+  @Override
+  public Predicate toPredicate(Root<T> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
+    List<Predicate> predicates = new ArrayList<>();
+
+    for (SearchCriteriaDTO criteria : criteriaList) {
+      String operation = criteria.getOperation().toLowerCase();
+      Path<?> path = root.get(criteria.getField());
+      Class<?> fieldType = path.getJavaType();
+
+      switch (operation) {
+        case "=":
+        case "equal":
+          predicates.add(builder.equal(path, convertValue(criteria.getValue(), fieldType)));
+          break;
+        case ">=":
+        case "greater_than_or_eq":
+          predicates.add(builder.greaterThanOrEqualTo(
+              (Expression<? extends Comparable>) path,
+              (Comparable) convertValue(criteria.getValue(), fieldType)));
+          break;
+        case "<=":
+        case "less_than_or_eq":
+          predicates.add(builder.lessThanOrEqualTo(
+              (Expression<? extends Comparable>) path,
+              (Comparable) convertValue(criteria.getValue(), fieldType)));
+          break;
+        case "~":
+        case "like":
+          predicates.add(builder.like(path.as(String.class), "%" + criteria.getValue() + "%"));
+          break;
+        default:
+          throw new IllegalArgumentException("Unsupported operation: " + operation);
+      }
+    }
+
+    return builder.and(predicates.toArray(new Predicate[0]));
+  }
+}
+```
+
+### 4. Эндпоинт ProductSearchController
+Контроллер обрабатывает запросы на поиск.
+
+```java
+@RestController
+@RequestMapping("/api/products")
+public class ProductSearchController {
+  private final ProductRepository productRepository;
+
+  public ProductSearchController(ProductRepository productRepository) {
+    this.productRepository = productRepository;
+  }
+
+  @PostMapping("/search")
+  public ResponseEntity<Page<Product>> searchProducts(
+      @RequestParam int page,
+      @RequestParam int size,
+      @RequestBody List<SearchCriteriaDTO> criteriaList) {
+
+    Pageable pageable = PageRequest.of(page, size);
+    DynamicSpecification<Product> spec = new DynamicSpecification<>(criteriaList);
+    Page<Product> result = productRepository.findAll(spec, pageable);
+
+    return ResponseEntity.ok(result);
+  }
+}
+```
+
+### 5. Обработка ошибок
+Для обработки ошибок используется `GlobalExceptionHandler`:
+- Возвращает корректные HTTP-ответы при валидации и других ошибках.
+
+```java
+@RestControllerAdvice
+public class GlobalExceptionHandler {
+
+  @ExceptionHandler(MethodArgumentNotValidException.class)
+  public ResponseEntity<ErrorDetails> handleValidationExceptions(
+      MethodArgumentNotValidException ex) {
+    String errorMessages =
+        ex.getBindingResult().getFieldErrors().stream()
+            .map(error -> error.getField() + ": " + error.getDefaultMessage())
+            .collect(Collectors.joining(", "));
+
+    ErrorDetails errorDetails =
+        new ErrorDetails(
+            "Validation Error", ex.getClass().getSimpleName(), errorMessages, LocalDateTime.now());
+
+    return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
+  }
+}
+```
+
+## Тестирование
+
+### Интеграционные тесты
+Используются тесты с `@DataJpaTest` для проверки работы репозитория и фильтрации.
+
+Пример теста:
+```java
+@DataJpaTest
+public class ProductRepositoryTest {
+
+  @Autowired private TestEntityManager entityManager;
+  @Autowired private ProductRepository productRepository;
+
+  @Test
+  public void testDynamicSpecification() {
+    Product product1 = new Product("Product1", BigDecimal.valueOf(120));
+    Product product2 = new Product("Product2", BigDecimal.valueOf(220));
+    entityManager.persist(product1);
+    entityManager.persist(product2);
+
+    List<SearchCriteriaDTO> criteriaList = Arrays.asList(
+        new SearchCriteriaDTO("price", 100, ">="),
+        new SearchCriteriaDTO("price", 200, "<="));
+
+    DynamicSpecification<Product> spec = new DynamicSpecification<>(criteriaList);
+
+    List<Product> result = productRepository.findAll(spec);
+
+    Assertions.assertEquals(2, result.size());
+  }
+}
+```
+
+## Вывод
+Реализован функционал многокритериального поиска, поддерживающий масштабируемость и простоту добавления новых полей. Проведены интеграционные тесты для проверки корректности работы.
+

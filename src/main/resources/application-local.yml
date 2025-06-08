@@ -1,0 +1,68 @@
+spring:
+  datasource:
+    url: jdbc:h2:file:./movchandb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        web-allow-others: true
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  liquibase:
+    change-log: classpath:/db/changelog/db.changelog-master.yaml
+    drop-first: true
+
+kafka:
+  bootstrap-servers: localhost:9092
+
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.apache.kafka: ERROR  # Скрывает TRACE/DEBUG логи
+    org.springframework.kafka: ERROR
+
+currency-service:
+  host: http://localhost:8085
+  methods:
+    get-currency: /api/v1/currencies
+
+aws:
+  s3:
+    endpoint: http://192.168.0.21:9000
+    region: us-east-1 # MinIO обычно использует этот регион по умолчанию
+    access-key: minioadmin  # ← стандартный логин
+    secret-key: minioadmin  # ← стандартный пароль
+    bucket-name: product-images
+
+
+server:
+  port: 8090  # Установите желаемый порт
+
+# Добавляем настройки шедулеров
+#app:
+
+#scheduling:
+#  optimization: false
+
+#logging:
+#  level:
+#    root: INFO # Общий уровень логов, из за этого 1 гб оперативной тратится
+#    org.springframework: WARN # Уровень логов Spring
+#    org.hibernate: WARN # Уровень логов Hibernate
+#    com.zaxxer.hikari: WARN # Уровень логов HikariCP
+#    com.goods_warehouse: INFO
+
+#logging:
+#  level:
+#    root: INFO # Общий уровень логов, из за этого 1 гб оперативной тратится

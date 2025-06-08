@@ -30,7 +30,7 @@
           },
           "status": "OK",
           "code": 200,
-          "body": "[{\"id\": \"uuid_1\", \"name\": \"Товар 1\", \"sku\": \"SKU001\", \"description\": \"Описание товара 1\", \"category\": \"Категория A\", \"price\": 100.0, \"quantity\": 50, \"last_quantity_update\": \"2024-01-01T00:00:00\", \"created_at\": \"2024-01-01T00:00:00\"}]",
+          "body": "[{\"id\": \"uuid_1\", \"name\": \"Товар 1\", \"sku\": \"SKU001\", \"description\": \"Описание товара 1\", \"category\": \"Категория A\", \"price\": 100.0, \"currency\": \"RUB\", \"quantity\": 50, \"last_quantity_update\": \"2024-01-01T00:00:00\", \"created_at\": \"2024-01-01T00:00:00\"}]",
           "header": [
             {
               "key": "Content-Type",

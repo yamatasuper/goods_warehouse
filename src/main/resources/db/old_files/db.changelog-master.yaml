@@ -1,0 +1,151 @@
+#databaseChangeLog:
+#  - changeSet:
+#      id: 1
+#      author: artemmovchan
+#      changes:
+#        - createTable:
+#            tableName: product
+#            columns:
+#              - column:
+#                  name: id
+#                  type: bigint
+#                  autoIncrement: true
+#                  constraints:
+#                    primaryKey: true
+#                    nullable: false
+#              - column:
+#                  name: name
+#                  type: varchar(255)
+#                  constraints:
+#                    nullable: false
+#              - column:
+#                  name: sku
+#                  type: varchar(255)
+#                  constraints:
+#                    nullable: false
+#              - column:
+#                  name: description
+#                  type: text
+#              - column:
+#                  name: category
+#                  type: varchar(255)
+#              - column:
+#                  name: price
+#                  type: decimal(10, 2)
+#                  constraints:
+#                    nullable: false
+#              - column:
+#                  name: quantity
+#                  type: int
+#                  constraints:
+#                    nullable: false
+#              - column:
+#                  name: last_quantity_update
+#                  type: varchar(255)
+#              - column:
+#                  name: created_at
+#                  type: varchar(255)
+#                  constraints:
+#                    nullable: false
+#              - column:
+#                  name: currency
+#                  type: varchar(255)
+#
+#  - changeSet:
+#      id: 2
+#      author: artemmovchan
+#      changes:
+#        - insert:
+#            tableName: product
+#            columns:
+#              - column:
+#                  name: name
+#                  value: "Laptop"
+#              - column:
+#                  name: sku
+#                  value: "LAP12345"
+#              - column:
+#                  name: description
+#                  value: "High-performance laptop"
+#              - column:
+#                  name: category
+#                  value: "Electronics"
+#              - column:
+#                  name: price
+#                  value: "999.99"
+#              - column:
+#                  name: quantity
+#                  value: "50"
+#              - column:
+#                  name: last_quantity_update
+#                  value: "2025-01-14"
+#              - column:
+#                  name: created_at
+#                  value: "2025-01-01"
+#              - column:
+#                  name: currency
+#                  value: "RUB"
+#
+#  - changeSet:
+#      id: 3
+#      author: artemmovchan
+#      changes:
+#        - insert:
+#            tableName: product
+#            columns:
+#              - column:
+#                  name: name
+#                  value: "Smartphone"
+#              - column:
+#                  name: sku
+#                  value: "SM12345"
+#              - column:
+#                  name: description
+#                  value: "Latest model smartphone"
+#              - column:
+#                  name: category
+#                  value: "Electronics"
+#              - column:
+#                  name: price
+#                  value: "799.99"
+#              - column:
+#                  name: quantity
+#                  value: "100"
+#              - column:
+#                  name: last_quantity_update
+#                  value: "2025-01-14"
+#              - column:
+#                  name: created_at
+#                  value: "2025-01-01"
+#              - column:
+#                  name: currency
+#                  value: "RUB"
+#
+#  - changeSet:
+#      id: 4
+#      author: artemmovchan
+#      changes:
+#        - createSequence:
+#            sequenceName: your_table_id_seq
+#            incrementBy: 1
+#        - createTable:
+#            tableName: price
+#            columns:
+#              - column:
+#                  name: idbig
+#                  type: bigint
+#                  constraints:
+#                    primaryKey: true
+#                    nullable: false
+#                    defaultValueSequence: your_table_id_seq
+#              - column:
+#                  name: valueprice
+#                  type: decimal(10, 2)
+#                  constraints:
+#                    nullable: false
+#  - changeSet:
+#      id: 5
+#      author: artemmovchan
+#      changes:
+#        - sqlFile:
+#            path: db/changelog/generate_data.sql

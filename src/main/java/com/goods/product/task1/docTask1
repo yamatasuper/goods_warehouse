@@ -1,0 +1,96 @@
+/**
+ * Инструкция по запуску и реализации шедулера изменения цены.
+ *
+ * Это руководство описывает процесс реализации задания по созданию шедулеров изменения цен продуктов, а также включает инструкции по настройке и запуску приложения.
+ *
+ * ## Конфигурация приложения
+ * Основные параметры задаются в файле `application.properties`:
+ * ```properties
+ * app.scheduling.enabled=true
+ * scheduling.optimization=false
+ * ```
+ * - `app.scheduling.enabled` — включает/выключает работу шедулеров.
+ * - `scheduling.optimization` — определяет использование оптимизированного шедулера.
+ *
+ * ## Шаги запуска
+ *
+ * #### Запуск с генерацией данных (опционально)
+ * ```bash
+ * java -jar build/libs/<имя_файла_jar>.jar generate-data
+ * ```
+ *
+ * #### Обычный запуск
+ * ```bash
+ * java -jar build/libs/<имя_файла_jar>.jar
+ * ```
+ *
+ * ## Описание компонентов реализации
+ *
+ * ### 1. Шедулер изменения цен (PriceScheduler)
+ *
+ * #### Назначение
+ * Реализует два шедулера: простой и оптимизированный. Каждый из них изменяет цены продуктов в базе данных с разной периодичностью.
+ *
+ * #### Условия работы
+ * - **Простой шедулер**: запускается, если `app.scheduling.enabled=true` и `scheduling.optimization=false`.
+ * - **Оптимизированный шедулер**: запускается, если `app.scheduling.enabled=true` и `scheduling.optimization=true`.
+ *
+ * #### Особенности
+ * - Простой шедулер выполняется каждые 5 минут (fixedRate = 300000).
+ * - Оптимизированный шедулер — каждую минуту (fixedRate = 60000).
+ * - Логика изменения цен:
+ *   1. Выбор всех записей из базы.
+ *   2. Увеличение цены каждого продукта на 5%.
+ *   3. Сохранение изменений в базе данных.
+ *
+ * #### Пример кода простого шедулера:
+ * ```java
+ * @Scheduled(fixedRate = 300000)
+ * public void updatePricesSimple() {
+ *     if (isSchedulingEnabled && !isOptimizationEnabled) {
+ *         Iterable<Product> products = productRepository.findAll();
+ *         for (Product product : products) {
+ *             product.setPrice(product.getPrice().multiply(new BigDecimal("1.05")));
+ *             productRepository.save(product);
+ *         }
+ *     }
+ * }
+ * ```
+ *
+ * ### 2. Генерация данных (BatchGenerationService и DataGeneratorService)
+ *
+ * #### Назначение
+ * Позволяет создавать большие объемы тестовых данных в базе данных. Реализована пакетная обработка с использованием потоков для повышения производительности.
+ *
+ * #### Логика работы
+ * 1. Деление общего числа записей на пакеты (`batchSize`).
+ * 2. Создание потоков для обработки каждого пакета.
+ * 3. Вставка данных в базу через `JdbcTemplate.batchUpdate`.
+ * 4. Логирование выполнения каждого пакета в файл `data_generation.log`.
+ *
+ * #### Пример SQL-запроса для вставки:
+ * ```java
+ * String sql = "INSERT INTO product (name, sku, description, category, price, currency, quantity, last_quantity_update, created_at, version) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+ * jdbcTemplate.batchUpdate(sql, batchArgs);
+ * ```
+ *
+ * ### 3. Логирование и измерение времени выполнения
+ *
+ * #### Аннотации и аспекты:
+ * 1. **`@TimeMeasured`** — измеряет общее время выполнения метода.
+ * 2. **`@ExecutionTime`** — логирует время начала и окончания метода.
+ *
+ * #### Пример использования:
+ * ```java
+ * @TimeMeasured
+ * public void generateData(int totalRecords, int batchSize) {
+ *     ...
+ * }
+ * ```
+ *
+ * ### 4. Контроль ресурсов
+ * Для оптимизированного шедулера:
+ * - Время выполнения не должно превышать 1 минуты.
+ * - Использование памяти — не более 500 МБ (проверяется через VisualVM).
+ */
+

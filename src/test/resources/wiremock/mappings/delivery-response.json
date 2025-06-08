@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/api/delivery/register"
+  },
+  "response": {
+    "status": 200,
+    "body": "{\"deliveryDate\": \"2023-10-01\"}",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}
